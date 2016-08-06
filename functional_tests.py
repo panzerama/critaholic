@@ -22,9 +22,11 @@ class NewVisitorTest(unittest.TestCase):
 		self.fail('Finish the test!')
 
 		# and gives a brief description of how to use it
+		# assertIn('Instruction line', self.browser.something?)
 
 		# She is invited to enter the name of a PC or monster and its initiative
 		# She types in 'displacer beast' and '10'
+		# There's a keys command or somesuch.
 
 		# When she hits enter the page updates and she sees 10 and the name of 
 		# the displacer beast

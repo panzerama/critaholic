@@ -1,4 +1,5 @@
 from django.core.urlresolvers import resolve
+from django.template.loader import render_to_string
 from django.test import TestCase
 from django.http import HttpRequest
 from initiative.views import home_page
@@ -13,10 +14,10 @@ class HomePageTest(TestCase):
 	def test_home_page_shows_correct_html(self):
 		request = HttpRequest()
 		response = home_page(request)
-		self.assertTrue(response.content.startswith(b'<html>'))
-		self.assertIn(b'<title>Critaholic: Initiative Tracker</title>', response.content)
-		self.assertIn(b'<h1>Critaholic: Initiative!</h1>', response.content)
-		self.assertTrue(response.content.endswith(b'</html>'))
+		expected_output = render_to_string('home.html')
+		self.assertEqual(response.content.decode(), expected_output)
+
+
 
 #my guesses as to the next tests before reading on
 # home page renders the how-to text

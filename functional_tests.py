@@ -43,15 +43,17 @@ class NewVisitorTest(unittest.TestCase):
 			'Enter the monster\'s initiative'
 		)
 		initiative_number_input.send_keys('10')
-		# Enter 
-		initiative_number_input.send_keys(Keys.ENTER)
+
+		# Enter
+		initiative_submit = self.browser.find_element_by_id('initiative_submit')
+		initiative_submit.click()
 
 		# When she hits enter the page updates and she sees 10 and the name of 
 		# the displacer beast
 		# assert that the words displacer beast and the number ten are in 
 		# a row or cell that match the right id.
-		name_display_cells = self.browser.find_elements_by_name('initiative_name_display')
-		init_display_cells = self.browser.find_elements_by_name('initiative_number_display')
+		name_display_cells = self.browser.find_elements_by_class_name('initiative_name_display')
+		init_display_cells = self.browser.find_elements_by_class_name('initiative_number_display')
 		self.assertTrue(any(name_display_cells.text == 'Displacer Beast'), "Actually do something with dat input!")
 		self.assertTrue(any(init_display_cells.text == '10'))
 		self.fail('Finish the test!')
@@ -66,6 +68,7 @@ class NewVisitorTest(unittest.TestCase):
 		# And the page updates again, showing both creatures (sorted by initiative)
 		# iterate through the cells and rows
 		#	assert that the appropriate beasts are listed in the appropriate order
+		# 	TODO does selenium return things in order
 
 
 		# Gina ends her session, but wonders if the site will remember this enc-

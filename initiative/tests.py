@@ -17,11 +17,13 @@ class HomePageTest(TestCase):
 		expected_output = render_to_string('home.html')
 		self.assertEqual(response.content.decode(), expected_output)
 
+	def test_name_and_init_input_saved_by_POST(self):
+		request = HttpRequest()
+		request.method = 'POST'
+		request.POST['init_name'] = 'beholder'
+		request.POST['init_num'] = '18'
 
+		response = home_page(request)
+		self.assertIn('beholder', response.content.decode())
+		self.assertIn('18', response.content.decode())
 
-#my guesses as to the next tests before reading on
-# home page renders the how-to text
-# home page renders the form fields
-# home page renders default text
-# entering information in the fields and pressing enter refreshes the page
-# information from a request is returned properly in response

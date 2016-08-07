@@ -23,16 +23,25 @@ class NewVisitorTest(unittest.TestCase):
 
 		# and gives a brief description of how to use it
 		instruction_text = self.browser.find_element_by_id('instructions')
-		self.assertIn('First, enter the name of the monster.', instruction_text)
-		self.assertIn('Second, enter the initiative.', instruction_text)
+		self.assertIn('First, enter the name of the monster.', instruction_text.text)
+		self.assertIn('Second, enter the initiative.', instruction_text.text)
 
 		# She is invited to enter the name of a PC or monster and its initiative
-		# She types in 'displacer beast' and '10'
-		# find the input box for monster name
 		initiative_name_input = self.browser.find_element_by_id('initiative_name_input')
+		self.assertEqual(
+			initiative_name_input.get_attribute('placeholder'),
+			'Enter a monster\'s name'
+		)
+
+		# She types in 'displacer beast' and '10'
 		initiative_name_input.send_keys('Displacer beast')
+
 		# find the input box for the initiative
 		initiative_number_input = self.browser.find_element_by_id('initiative_number_input')
+		self.assertEqual(
+			initiative_number_input.get_attribute('placeholder'),
+			'Enter the monster\'s initiative'
+		)
 		initiative_number_input.send_keys('10')
 		# Enter 
 		initiative_number_input.send_keys(Keys.ENTER)
@@ -43,7 +52,7 @@ class NewVisitorTest(unittest.TestCase):
 		# a row or cell that match the right id.
 		name_display_cells = self.browser.find_elements_by_name('initiative_name_display')
 		init_display_cells = self.browser.find_elements_by_name('initiative_number_display')
-		self.assertTrue(any(name_display_cells.text == 'Displacer Beast'))
+		self.assertTrue(any(name_display_cells.text == 'Displacer Beast'), "Actually do something with dat input!")
 		self.assertTrue(any(init_display_cells.text == '10'))
 		self.fail('Finish the test!')
 

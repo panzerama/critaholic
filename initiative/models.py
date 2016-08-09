@@ -1,3 +1,5 @@
 from django.db import models
 
-# Create your models here.
+class Initiative(models.Model):
+	creature_name = models.TextField
+	initiative_order = models.IntegerField

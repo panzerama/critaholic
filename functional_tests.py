@@ -11,8 +11,12 @@ class NewVisitorTest(unittest.TestCase):
 	def tearDown(self):
 		self.browser.quit()
 
-	def test_new_user_can_create_initiative(self):
+	def check_for_cells_in_list_table(self, cell_text):
+		table = self.browser.find_element_by_id('init_table')
+		cells = table.find_elements_by_tag_name('td')
+		self.assertIn(cell_text, [cell.text for cell in cells])
 
+	def test_new_user_can_create_initiative(self):
 		# Gina the GM has heard about a fantastic new app for tracking 
 		# initiative. She decides to try it out. She opens a browser and 
 		# navigates to the page.
@@ -52,23 +56,47 @@ class NewVisitorTest(unittest.TestCase):
 		# the displacer beast
 		# assert that the words displacer beast and the number ten are in 
 		# a row or cell that match the right id.
-		name_display_cells = self.browser.find_elements_by_class_name('initiative_name_display')
-		init_display_cells = self.browser.find_elements_by_class_name('initiative_number_display')
-		self.assertTrue(any(name_display_cells.text == 'Displacer Beast'), "Actually do something with dat input!")
-		self.assertTrue(any(init_display_cells.text == '10'))
-		self.fail('Finish the test!')
+
+		self.check_for_cells_in_list_table('Displacer beast')
+		self.check_for_cells_in_list_table('10')
 
 		# There is still a pair of text boxes ready to accept information
 		# assert that the form fields are there
+		initiative_name_input = self.browser.find_element_by_id('initiative_name_input')
+		self.assertEqual(
+			initiative_name_input.get_attribute('placeholder'),
+			'Enter a monster\'s name'
+		)
 
-		# Gina types in 'ettin' and '2'. She hits enter
-		# send keys again
+		# She types in 'ettin
+		initiative_name_input.send_keys('Ettin')
+
+		# find the input box for the initiative
+		initiative_number_input = self.browser.find_element_by_id('initiative_number_input')
+		self.assertEqual(
+			initiative_number_input.get_attribute('placeholder'),
+			'Enter the monster\'s initiative'
+		)
+
+		# She types in '2', ettins not being known for their high dex
+		initiative_number_input.send_keys('2')
+
+		# And she clicks 'submit'
+		initiative_submit = self.browser.find_element_by_id('initiative_submit')
+		initiative_submit.click()
 
 
 		# And the page updates again, showing both creatures (sorted by initiative)
 		# iterate through the cells and rows
 		#	assert that the appropriate beasts are listed in the appropriate order
 		# 	TODO does selenium return things in order
+
+		self.check_for_cells_in_list_table('Displacer beast')
+		self.check_for_cells_in_list_table('10')
+		self.check_for_cells_in_list_table('Ettin')
+		self.check_for_cells_in_list_table('2')
+
+		self.fail('Finish the test!')
 
 
 		# Gina ends her session, but wonders if the site will remember this enc-

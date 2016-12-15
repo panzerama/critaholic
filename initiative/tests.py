@@ -16,6 +16,9 @@ class HomePageTest(TestCase):
 	#testing csrf tokens is difficult in 1.10, testing only a part of the pages
 	def test_home_page_shows_correct_html(self):
 		request = HttpRequest()
+		request.method = 'POST'
+		request.POST['init_name'] = 'beholder'
+		request.POST['init_num'] = 18
 		response = home_page(request)
 		expected_output = render(request, 'home.html')
 		self.assertEqual(response.content.decode()[:40], expected_output.content.decode()[:40])
@@ -25,8 +28,13 @@ class HomePageTest(TestCase):
 		request = HttpRequest()
 		request.method = 'POST'
 		request.POST['init_name'] = 'beholder'
-		request.POST['init_num'] = '18'
+		request.POST['init_num'] = 18
 		response = home_page(request)
+
+		self.assertEqual(Initiative.objects.count(), 1)
+		new_init_order = Initiative.objects.first()
+		self.assertEqual(new_init_order.creature_name, 'beholder')
+		self.assertEqual(new_init_order.initiative_value, 18)
 
 		self.assertIn('beholder', response.content.decode())
 		self.assertIn('18', response.content.decode())
@@ -36,12 +44,12 @@ class ItemModelTest(TestCase):
 	def test_save_initiative_object_and_retrieve(self):
 		first_init = Initiative()
 		first_init.creature_name = 'Shaltorin'
-		first_init.initiative_order = '1'
+		first_init.initiative_value = 1
 		first_init.save()
 
 		second_init = Initiative()
 		second_init.creature_name = 'Falkrainne'
-		second_init.initiative_order = '20'
+		second_init.initiative_value = 20
 		second_init.save()
 
 		init_order = Initiative.objects.all()

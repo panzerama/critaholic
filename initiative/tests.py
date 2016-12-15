@@ -40,6 +40,18 @@ class HomePageTest(TestCase):
         self.assertIn('beholder', response.content.decode())
         self.assertIn('18', response.content.decode())
 
+    def test_home_page_displays_all_monsters_in_order(self):
+        Initiative.objects.create(creature_name='beholder', initiative_value=10)
+        Initiative.objects.create(creature_name='displacer beast', initiative_value=11)
+
+        request = HttpRequest()
+        response = home_page(request)
+
+        self.assertIn('beholder', response.content.decode())
+        self.assertIn('10', response.content.decode())
+        self.assertIn('displacer beast', response.content.decode())
+        self.assertIn('11', response.content.decode())
+
 
 class ItemModelTest(TestCase):
 

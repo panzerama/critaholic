@@ -11,5 +11,4 @@ def home_page(request):
         initiative.save()
 
     return render(request, 'home.html',
-                  {'init_name_text': request.POST.get('init_name', ''),
-                   'init_num_text': request.POST.get('init_num', 0)})
+                  {'initiative_order': Initiative.objects.all()})

@@ -10,21 +10,10 @@ from initiative.models import Initiative
 class HomePageTest(TestCase):
 
     # TODO later on, change the home page to a menu system and move this to '/init'
-    def test_root_url_resolves_to_initiative_tracker(self): 
+    def test_root_url_uses_home_page(self):
         found = resolve('/')
         self.assertEqual(found.func, home_page)
 
-    # testing csrf tokens is difficult in 1.10, testing only a part of the pages
-    def test_home_page_shows_correct_html(self):
-        request = HttpRequest()
-        request.method = 'POST'
-        request.POST['init_name'] = 'beholder'
-        request.POST['init_num'] = 18
-        response = home_page(request)
-        expected_output = render(request, 'home.html')
-        self.assertEqual(response.content.decode()[:40], expected_output.content.decode()[:40])
-
-    # fix the lack of CSRF testing by implementing django.test.Client?
     def test_name_and_init_input_saved_by_POST(self):
         request = HttpRequest()
         request.method = 'POST'
@@ -37,20 +26,32 @@ class HomePageTest(TestCase):
         self.assertEqual(new_init_order.creature_name, 'beholder')
         self.assertEqual(new_init_order.initiative_value, 18)
 
-        self.assertIn('beholder', response.content.decode())
-        self.assertIn('18', response.content.decode())
+    def test_home_page_redirects_after_POST(self):
+        request = HttpRequest()
+        request.method = 'POST'
+        request.POST['init_name'] = 'beholder'
+        request.POST['init_num'] = 18
+        response = home_page(request)
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response['location'], '/init/the-only-encounter-in-the-world/')
 
-    def test_home_page_displays_all_monsters_in_order(self):
+
+class InitViewTest(TestCase):
+
+    def test_uses_init_view_template(self):
+        response = self.client.get('/init/the-only-encounter-in-the-world/')
+        self.assertTemplateUsed(response, 'init_view.html')
+
+    def test_displays_all_monsters_in_order(self):
         Initiative.objects.create(creature_name='beholder', initiative_value=10)
         Initiative.objects.create(creature_name='displacer beast', initiative_value=11)
 
-        request = HttpRequest()
-        response = home_page(request)
+        response = self.client.get('/init/the-only-encounter-in-the-world/')
 
-        self.assertIn('beholder', response.content.decode())
-        self.assertIn('10', response.content.decode())
-        self.assertIn('displacer beast', response.content.decode())
-        self.assertIn('11', response.content.decode())
+        self.assertContains(response, 'beholder')
+        self.assertContains(response, '10')
+        self.assertContains(response, 'displacer beast')
+        self.assertContains(response, '11')
 
 
 class ItemModelTest(TestCase):

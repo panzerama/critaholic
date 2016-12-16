@@ -1,0 +1,12 @@
+<html>
+	<title>Critaholic: Initiative Tracker</title>
+	<h1>Critaholic: Initiative!</h1>
+	<p id="instructions">First, enter the name of the monster. Second, enter the initiative.</p>
+
+	<form method="post">
+		<input id="initiative_name_input" name="init_name" type="text" placeholder="Enter a monster's name" />
+		<input id="initiative_number_input" name="init_num" type="text" placeholder="Enter the monster's initiative" />
+		<input id="initiative_submit" type="submit" value="Submit">
+		{% csrf_token %}
+	</form>
+</html>	

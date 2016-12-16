@@ -1,7 +1,6 @@
 from django.test import LiveServerTestCase
 from selenium import webdriver
-from selenium.webdriver.common.keys import Keys
-import unittest
+
 
 class NewVisitorTest(LiveServerTestCase):
 
@@ -88,7 +87,6 @@ class NewVisitorTest(LiveServerTestCase):
         initiative_submit = self.browser.find_element_by_id('initiative_submit')
         initiative_submit.click()
 
-
         # And the page updates again, showing both creatures (sorted by initiative)
         # iterate through the cells and rows
         #    assert that the appropriate beasts are listed in the appropriate order
@@ -140,4 +138,4 @@ class NewVisitorTest(LiveServerTestCase):
         self.assertNotIn('Displacer beast', init_text)
         self.assertIn('Kobold', init_text)
 
-# next step: initiative entry behaviors
+# next step: initiative entry behaviors: edit, reorder on edit, delete

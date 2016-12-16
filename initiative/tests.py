@@ -14,24 +14,20 @@ class HomePageTest(TestCase):
         found = resolve('/')
         self.assertEqual(found.func, home_page)
 
+
+class NewEncounterTest(TestCase):
+
     def test_name_and_init_input_saved_by_POST(self):
-        request = HttpRequest()
-        request.method = 'POST'
-        request.POST['init_name'] = 'beholder'
-        request.POST['init_num'] = 18
-        response = home_page(request)
+        self.client.post('/init/new', data={'init_name': 'beholder', 'init_num': 18})
 
         self.assertEqual(Initiative.objects.count(), 1)
         new_init_order = Initiative.objects.first()
         self.assertEqual(new_init_order.creature_name, 'beholder')
         self.assertEqual(new_init_order.initiative_value, 18)
 
-    def test_home_page_redirects_after_POST(self):
-        request = HttpRequest()
-        request.method = 'POST'
-        request.POST['init_name'] = 'beholder'
-        request.POST['init_num'] = 18
-        response = home_page(request)
+    def test_new_encounter_redirects_after_POST(self):
+        response = self.client.post('/init/new', data={'init_name': 'beholder', 'init_num': 18})
+
         self.assertEqual(response.status_code, 302)
         self.assertEqual(response['location'], '/init/the-only-encounter-in-the-world/')
 

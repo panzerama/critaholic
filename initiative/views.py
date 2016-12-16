@@ -4,6 +4,10 @@ from initiative.models import Initiative
 
 
 def home_page(request):
+    return render(request, 'home.html')
+
+
+def init_view(request):
     if request.method == 'POST':
         initiative = Initiative()
         initiative.creature_name = request.POST.get('init_name', '')
@@ -11,9 +15,9 @@ def home_page(request):
         initiative.save()
         return redirect('/init/the-only-encounter-in-the-world/')
 
-    return render(request, 'home.html',
-                  {'initiative_order': Initiative.objects.all()})
-
-
-def init_view(request):
     return render(request, 'init_view.html', {'initiative_order': Initiative.objects.all()})
+
+
+def new_init(request):
+    Initiative.objects.create(creature_name=request.POST['init_name'], initiative_value=request.POST['init_num'])
+    return redirect('/init/the-only-encounter-in-the-world/')

@@ -139,3 +139,5 @@ class NewVisitorTest(LiveServerTestCase):
         self.assertIn('Kobold', init_text)
 
 # next step: initiative entry behaviors: edit, reorder on edit, delete
+# step: add hit points fields
+# step: add notes field

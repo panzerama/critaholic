@@ -26,26 +26,36 @@ class NewEncounterTest(TestCase):
         response = self.client.post('/init/new', data={'init_name': 'beholder', 'init_num': 18})
 
         self.assertEqual(response.status_code, 302)
-        self.assertEqual(response['location'], '/init/the-only-encounter-in-the-world/')
+
+        new_encounter = Encounter.objects.first()
+        self.assertEqual(response['location'], '/init/%d/' % (new_encounter.id,))
 
 
 class InitViewTest(TestCase):
 
     def test_uses_init_view_template(self):
-        response = self.client.get('/init/the-only-encounter-in-the-world/')
+        encounter_ = Encounter.objects.create()
+        response = self.client.get('/init/%d/' % (encounter_.id,))
         self.assertTemplateUsed(response, 'init_view.html')
 
     def test_displays_all_monsters_in_order(self):
-        encounter_ = Encounter.objects.create()
-        Initiative.objects.create(creature_name='beholder', initiative_value=10, encounter=encounter_)
-        Initiative.objects.create(creature_name='displacer beast', initiative_value=11, encounter=encounter_)
+        correct_encounter_ = Encounter.objects.create()
+        Initiative.objects.create(creature_name='beholder', initiative_value=10, encounter=correct_encounter_)
+        Initiative.objects.create(creature_name='displacer beast', initiative_value=11, encounter=correct_encounter_)
 
-        response = self.client.get('/init/the-only-encounter-in-the-world/')
+        incorrect_encounter_ = Encounter.objects.create()
+        Initiative.objects.create(creature_name='Shaltorin', initiative_value=20, encounter=incorrect_encounter_)
+        Initiative.objects.create(creature_name='Falkrainne', initiative_value=1, encounter=incorrect_encounter_)
+
+        response = self.client.get('/init/%d/' % (correct_encounter_.id,))
 
         self.assertContains(response, 'beholder')
         self.assertContains(response, '10')
         self.assertContains(response, 'displacer beast')
         self.assertContains(response, '11')
+
+        self.assertNotContains(response, 'Shaltorin')
+        self.assertNotContains(response, 'Falkrainne')
 
 
 class EncounterAndInitiativeModelTest(TestCase):

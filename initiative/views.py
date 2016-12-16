@@ -7,15 +7,10 @@ def home_page(request):
     return render(request, 'home.html')
 
 
-def init_view(request):
-    if request.method == 'POST':
-        initiative = Initiative()
-        initiative.creature_name = request.POST.get('init_name', '')
-        initiative.initiative_value = request.POST.get('init_num', '')
-        initiative.save()
-        return redirect('/init/the-only-encounter-in-the-world/')
-
-    return render(request, 'init_view.html', {'initiative_order': Initiative.objects.all()})
+def init_view(request, encounter_id):
+    encounter_ = Encounter.objects.get(id=encounter_id)
+    inits = Initiative.objects.filter(encounter=encounter_id)
+    return render(request, 'init_view.html', {'initiative_order': inits})
 
 
 def new_init(request):
@@ -23,4 +18,4 @@ def new_init(request):
     Initiative.objects.create(creature_name=request.POST['init_name'],
                               initiative_value=request.POST['init_num'],
                               encounter=encounter_)
-    return redirect('/init/the-only-encounter-in-the-world/')
+    return redirect('/init/%d/' % (encounter_.id))

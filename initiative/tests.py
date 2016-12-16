@@ -58,12 +58,12 @@ class ItemModelTest(TestCase):
     def test_save_initiative_object_and_retrieve(self):
         first_init = Initiative()
         first_init.creature_name = 'Shaltorin'
-        first_init.initiative_value = 1
+        first_init.initiative_value = 20
         first_init.save()
 
         second_init = Initiative()
         second_init.creature_name = 'Falkrainne'
-        second_init.initiative_value = 20
+        second_init.initiative_value = 2
         second_init.save()
 
         init_order = Initiative.objects.all()

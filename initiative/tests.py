@@ -50,7 +50,7 @@ class InitViewTest(TestCase):
         self.assertContains(response, '11')
 
 
-class ItemModelTest(TestCase):
+class EncounterAndInitiativeModelTest(TestCase):
 
     def test_save_initiative_object_and_retrieve(self):
         first_init = Initiative()

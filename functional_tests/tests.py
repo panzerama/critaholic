@@ -1,8 +1,9 @@
+from django.test import LiveServerTestCase
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 import unittest
 
-class NewVisitorTest(unittest.TestCase):
+class NewVisitorTest(LiveServerTestCase):
 
     def setUp(self):
         self.browser = webdriver.Chrome('/Users/jd/Resources/chromedriver')
@@ -20,7 +21,7 @@ class NewVisitorTest(unittest.TestCase):
         # Gina the GM has heard about a fantastic new app for tracking 
         # initiative. She decides to try it out. She opens a browser and 
         # navigates to the page.
-        self.browser.get('http://localhost:8000')
+        self.browser.get(self.live_server_url)
 
         # The page title reads 'Critaholic'
         self.assertIn('Critaholic', self.browser.title)
@@ -89,7 +90,6 @@ class NewVisitorTest(unittest.TestCase):
         # And the page updates again, showing both creatures (sorted by initiative)
         # iterate through the cells and rows
         #    assert that the appropriate beasts are listed in the appropriate order
-        #     TODO does selenium return things in order
 
         self.check_for_cells_in_list_table('Displacer beast')
         self.check_for_cells_in_list_table('10')
@@ -97,7 +97,6 @@ class NewVisitorTest(unittest.TestCase):
         self.check_for_cells_in_list_table('2')
 
         self.fail('Finish the test!')
-
 
         # Gina ends her session, but wonders if the site will remember this enc-
         # ounter's initiative order. She sees that the site has generated a uni-
@@ -124,6 +123,3 @@ class NewVisitorTest(unittest.TestCase):
         #     Mobile responsive design
         # Other projects
         #    an app for tracking distances between creatures
-
-if __name__ == '__main__':
-    unittest.main()

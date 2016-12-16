@@ -1,10 +1,7 @@
 from django.core.urlresolvers import resolve
-from django.shortcuts import render
 from django.test import TestCase
-from django.http import HttpRequest
 from initiative.views import home_page
-# from django.views.decorators.csrf import csrf_exempt
-from initiative.models import Initiative
+from initiative.models import Initiative, Encounter
 
 
 class HomePageTest(TestCase):
@@ -39,8 +36,9 @@ class InitViewTest(TestCase):
         self.assertTemplateUsed(response, 'init_view.html')
 
     def test_displays_all_monsters_in_order(self):
-        Initiative.objects.create(creature_name='beholder', initiative_value=10)
-        Initiative.objects.create(creature_name='displacer beast', initiative_value=11)
+        encounter_ = Encounter.objects.create()
+        Initiative.objects.create(creature_name='beholder', initiative_value=10, encounter=encounter_)
+        Initiative.objects.create(creature_name='displacer beast', initiative_value=11, encounter=encounter_)
 
         response = self.client.get('/init/the-only-encounter-in-the-world/')
 
@@ -53,21 +51,31 @@ class InitViewTest(TestCase):
 class EncounterAndInitiativeModelTest(TestCase):
 
     def test_save_initiative_object_and_retrieve(self):
+        encounter_ = Encounter()
+        encounter_.save()
+
         first_init = Initiative()
         first_init.creature_name = 'Shaltorin'
         first_init.initiative_value = 20
+        first_init.encounter = encounter_
         first_init.save()
 
         second_init = Initiative()
         second_init.creature_name = 'Falkrainne'
         second_init.initiative_value = 2
+        second_init.encounter = encounter_
         second_init.save()
 
         init_order = Initiative.objects.all()
         self.assertEqual(init_order.count(), 2)
 
+        saved_encounter = Encounter.objects.first()
+        self.assertEqual(saved_encounter, encounter_)
+
         first_saved_init = init_order[0]
         second_saved_init = init_order[1]
 
         self.assertEqual(first_saved_init, first_init)
+        self.assertEqual(first_saved_init.encounter, encounter_)
         self.assertEqual(second_saved_init, second_init)
+        self.assertEqual(second_saved_init.encounter, encounter_)

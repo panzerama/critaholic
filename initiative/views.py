@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 # from django.http import HttpResponse
-from initiative.models import Initiative
+from initiative.models import Initiative, Encounter
 
 
 def home_page(request):
@@ -19,5 +19,8 @@ def init_view(request):
 
 
 def new_init(request):
-    Initiative.objects.create(creature_name=request.POST['init_name'], initiative_value=request.POST['init_num'])
+    encounter_ = Encounter.objects.create()
+    Initiative.objects.create(creature_name=request.POST['init_name'],
+                              initiative_value=request.POST['init_num'],
+                              encounter=encounter_)
     return redirect('/init/the-only-encounter-in-the-world/')

@@ -53,10 +53,12 @@ class NewVisitorTest(LiveServerTestCase):
         initiative_submit = self.browser.find_element_by_id('initiative_submit')
         initiative_submit.click()
 
-        # When she hits enter the page updates and she sees 10 and the name of 
-        # the displacer beast
-        # assert that the words displacer beast and the number ten are in 
-        # a row or cell that match the right id.
+        # When she hits enter the page updates and she sees a new, unique URL
+        # the page displays the name of the displacer beast and the number 10
+
+        # test the unique url?
+        gina_init_url = self.browser.current_url
+        self.assertRegex(gina_init_url, '/init/.+')
 
         self.check_for_cells_in_list_table('Displacer beast')
         self.check_for_cells_in_list_table('10')
@@ -96,30 +98,46 @@ class NewVisitorTest(LiveServerTestCase):
         self.check_for_cells_in_list_table('Ettin')
         self.check_for_cells_in_list_table('2')
 
-        self.fail('Finish the test!')
+        # Gary the GM comes to the site too, having heard about the awesomeness
+        self.browser.quit()
+        self.browser = webdriver.Chrome('/Users/jd/Resources/chromedriver')
+        self.browser.get(self.live_server_url)
 
-        # Gina ends her session, but wonders if the site will remember this enc-
-        # ounter's initiative order. She sees that the site has generated a uni-
-        # que URL for her.
-        # assert something about the url
+        # He sees a brand new page, no sign of anyone else's encounter
+        init_text = self.browser.find_element_by_tag_name('body').text
+        self.assertNotIn('Displacer beast', init_text)
+        self.assertNotIn('Ettin', init_text)
 
-        # She visits that URL and, sure enough, the list is there, waiting for 
-        # her.
-        # browser gets the unique url
-        # test that the things we expect are displayed
+        # Gary enters an monster
+        initiative_name_input = self.browser.find_element_by_id('initiative_name_input')
+        self.assertEqual(
+            initiative_name_input.get_attribute('placeholder'),
+            'Enter a monster\'s name'
+        )
 
-        # Satisfied, she carries on with the session.
-        # end test one.
+        # He types in 'kobold'
+        initiative_name_input.send_keys('Kobold')
 
-        # Second tier project goals
-        #     Add hit points to the monsters
-        #    Let the user change the hit points
-        #     Automatically sort the list
-        #    Delete monsters
-        # Third tier project goals
-        #    drag and drop items to reorganize
-        #    create multiple monsters
-        # Future
-        #     Mobile responsive design
-        # Other projects
-        #    an app for tracking distances between creatures
+        # find the input box for the initiative
+        initiative_number_input = self.browser.find_element_by_id('initiative_number_input')
+        self.assertEqual(
+            initiative_number_input.get_attribute('placeholder'),
+            'Enter the monster\'s initiative'
+        )
+        initiative_number_input.send_keys('1')
+
+        # Enter
+        initiative_submit = self.browser.find_element_by_id('initiative_submit')
+        initiative_submit.click()
+
+        # the page refreshes and he gets his own url
+        gary_init_url = self.browser.current_url
+        self.assertRegex(gary_init_url, '/init/.+')
+        self.assertNotEqual(gary_init_url, gina_init_url)
+
+        # Gina's items are still not on the page, but Gary's are
+        init_text = self.browser.find_element_by_tag_name('body').text
+        self.assertNotIn('Displacer beast', init_text)
+        self.assertIn('Kobold', init_text)
+
+# next step: initiative entry behaviors

@@ -31,7 +31,12 @@ class NewVisitorTest(LiveServerTestCase):
         self.assertIn('Second, enter the initiative.', instruction_text.text)
 
         # She is invited to enter the name of a PC or monster and its initiative
-        # TODO for titles for name, initiative, hit points
+        titles = self.browser.find_elements_by_tag_name('label')
+        title_text = [title.text for title in titles]
+        self.assertIn('Creature', title_text[0])
+        self.assertIn('Initiative', title_text[1])
+        self.assertIn('Starting HP', title_text[2])
+
         initiative_name_input = self.browser.find_element_by_id('initiative_name_input')
         self.assertEqual(
             initiative_name_input.get_attribute('placeholder'),
@@ -50,7 +55,12 @@ class NewVisitorTest(LiveServerTestCase):
         initiative_number_input.send_keys('10')
 
         # This displacer beast starts with 100 hit points, and she enters in that amount in the appropriate box
-        # TODO test for hp box
+        initiative_number_input = self.browser.find_element_by_id('initiative_hp_input')
+        self.assertEqual(
+            initiative_number_input.get_attribute('placeholder'),
+            'Enter the monster\'s hit points'
+        )
+        initiative_number_input.send_keys('100')
 
         # Enter
         initiative_submit = self.browser.find_element_by_id('initiative_submit')
@@ -59,7 +69,6 @@ class NewVisitorTest(LiveServerTestCase):
         # When she hits enter the page updates and she sees a new, unique URL
         # the page displays the name of the displacer beast, the initiative number 10
         # and the hit point value 100
-        # TODO test for hp value
 
         # test the unique url?
         gina_init_url = self.browser.current_url
@@ -67,6 +76,7 @@ class NewVisitorTest(LiveServerTestCase):
 
         self.check_for_cells_in_list_table('Displacer beast')
         self.check_for_cells_in_list_table('10')
+        self.check_for_cells_in_list_table('100')
 
         # There is still a pair of text boxes ready to accept information
         # assert that the form fields are there
@@ -89,7 +99,13 @@ class NewVisitorTest(LiveServerTestCase):
         # She types in '2', ettins not being known for their high dex
         initiative_number_input.send_keys('2')
 
-        # TODO add test for entering second hp value
+        # This ettin starts with 125 hit points, and she enters in that amount in the appropriate box
+        initiative_number_input = self.browser.find_element_by_id('initiative_hp_input')
+        self.assertEqual(
+            initiative_number_input.get_attribute('placeholder'),
+            'Enter the monster\'s hit points'
+        )
+        initiative_number_input.send_keys('125')
 
         # And she clicks 'submit'
         initiative_submit = self.browser.find_element_by_id('initiative_submit')
@@ -101,8 +117,10 @@ class NewVisitorTest(LiveServerTestCase):
 
         self.check_for_cells_in_list_table('Displacer beast')
         self.check_for_cells_in_list_table('10')
+        self.check_for_cells_in_list_table('100')
         self.check_for_cells_in_list_table('Ettin')
         self.check_for_cells_in_list_table('2')
+        self.check_for_cells_in_list_table('125')
 
         # Gina runs through the first round of combat and SURPRISE! the ettin is hit
         # She plugs the damage into the appropriate box and hits update

@@ -4,8 +4,12 @@
 	<p id="instructions">First, enter the name of the monster. Second, enter the initiative.</p>
 
 	<form method="post" action="/init/{{ encounter.id }}/add_init">
-		<input id="initiative_name_input" name="init_name" type="text" placeholder="Enter a monster's name" />
-		<input id="initiative_number_input" name="init_num" type="text" placeholder="Enter the monster's initiative" />
+        <label for="init_name">Creature</label>
+        <input id="initiative_name_input" name="init_name" type="text" placeholder="Enter a monster's name" />
+		<label for="init_num">Initiative</label>
+        <input id="initiative_number_input" name="init_num" type="text" placeholder="Enter the monster's initiative" />
+        <label for="init_hp">Starting HP</label>
+        <input id="initiative_hp_input" name="init_hp" type="text" placeholder="Enter the monster's hit points" />
 		<input id="initiative_submit" type="submit" value="Submit">
 		{% csrf_token %}
 	</form>
@@ -15,6 +19,7 @@
             <tr>
                 <td class="initiative_name_display">{{ initiative.creature_name }}</td>
                 <td class="initiative_number_display">{{ initiative.initiative_value }}</td>
+                <td class="initiative_hp_display">{{ initiative.hit_points }}</td>
             </tr>
         {%  endfor %}
 	</table>

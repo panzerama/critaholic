@@ -15,8 +15,7 @@ class HomePageTest(TestCase):
 class NewEncounterTest(TestCase):
 
     def test_name_and_init_input_saved_by_POST(self):
-        self.client.post('/init/new', data={'init_name': 'beholder', 'init_num': 18})
-        # TODO hp test
+        self.client.post('/init/new', data={'init_name': 'beholder', 'init_num': 18, 'init_hp': 150})
 
         self.assertEqual(Initiative.objects.count(), 1)
         new_init_order = Initiative.objects.first()
@@ -24,8 +23,7 @@ class NewEncounterTest(TestCase):
         self.assertEqual(new_init_order.initiative_value, 18)
 
     def test_new_encounter_redirects_after_POST(self):
-        response = self.client.post('/init/new', data={'init_name': 'beholder', 'init_num': 18})
-        # TODO hp test
+        response = self.client.post('/init/new', data={'init_name': 'beholder', 'init_num': 18, 'init_hp': 150})
 
         self.assertEqual(response.status_code, 302)
 
@@ -40,8 +38,7 @@ class NewInitiativeTest(TestCase):
         this_encounter = Encounter.objects.create()
 
         self.client.post('/init/%d/add_init' % (this_encounter.id,),
-                         data={'init_name': 'beholder', 'init_num': 18})
-        # TODO hp test
+                         data={'init_name': 'beholder', 'init_num': 18, 'init_hp': 150})
 
         self.assertEqual(Initiative.objects.count(), 1)
         new_init = Initiative.objects.first()
@@ -53,8 +50,7 @@ class NewInitiativeTest(TestCase):
         this_encounter = Encounter.objects.create()
 
         response = self.client.post('/init/%d/add_init' % (this_encounter.id,),
-                                    data={'init_name': 'beholder', 'init_num': 18})
-        # TODO hp test
+                                    data={'init_name': 'beholder', 'init_num': 18, 'init_hp': 150})
 
         self.assertRedirects(response, '/init/%d/' % (this_encounter.id,))
 
@@ -68,21 +64,22 @@ class InitViewTest(TestCase):
 
     def test_displays_all_monsters_in_order(self):
         correct_encounter_ = Encounter.objects.create()
-        Initiative.objects.create(creature_name='beholder', initiative_value=10, encounter=correct_encounter_)
-        Initiative.objects.create(creature_name='displacer beast', initiative_value=11, encounter=correct_encounter_)
-        # TODO hp test
+        Initiative.objects.create(creature_name='beholder', initiative_value=10, hit_points=150, encounter=correct_encounter_)
+        Initiative.objects.create(creature_name='displacer beast', initiative_value=11, hit_points=100, encounter=correct_encounter_)
+
 
         incorrect_encounter_ = Encounter.objects.create()
-        Initiative.objects.create(creature_name='Shaltorin', initiative_value=20, encounter=incorrect_encounter_)
-        Initiative.objects.create(creature_name='Falkrainne', initiative_value=1, encounter=incorrect_encounter_)
-        # TODO hp test
+        Initiative.objects.create(creature_name='Shaltorin', initiative_value=20, hit_points=250, encounter=incorrect_encounter_)
+        Initiative.objects.create(creature_name='Falkrainne', initiative_value=1, hit_points=2, encounter=incorrect_encounter_)
 
         response = self.client.get('/init/%d/' % (correct_encounter_.id,))
 
         self.assertContains(response, 'beholder')
         self.assertContains(response, '10')
+        self.assertContains(response, '150')
         self.assertContains(response, 'displacer beast')
         self.assertContains(response, '11')
+        self.assertContains(response, '100')
 
         self.assertNotContains(response, 'Shaltorin')
         self.assertNotContains(response, 'Falkrainne')
@@ -97,19 +94,20 @@ class InitViewTest(TestCase):
 class EncounterAndInitiativeModelTest(TestCase):
 
     def test_save_initiative_object_and_retrieve(self):
-        # todo hp test
         encounter_ = Encounter()
         encounter_.save()
 
         first_init = Initiative()
         first_init.creature_name = 'Shaltorin'
         first_init.initiative_value = 20
+        first_init.hit_points = 250
         first_init.encounter = encounter_
         first_init.save()
 
         second_init = Initiative()
         second_init.creature_name = 'Falkrainne'
-        second_init.initiative_value = 2
+        second_init.initiative_value = 1
+        second_init.hit_points = 2
         second_init.encounter = encounter_
         second_init.save()
 
@@ -122,7 +120,10 @@ class EncounterAndInitiativeModelTest(TestCase):
         first_saved_init = init_order[0]
         second_saved_init = init_order[1]
 
-        self.assertEqual(first_saved_init, first_init)
-        self.assertEqual(first_saved_init.encounter, encounter_)
-        self.assertEqual(second_saved_init, second_init)
-        self.assertEqual(second_saved_init.encounter, encounter_)
+        self.assertEqual(first_saved_init.creature_name, first_init.creature_name)
+        self.assertEqual(first_saved_init.initiative_value, first_init.initiative_value)
+        self.assertEqual(first_saved_init.hit_points, first_init.hit_points)
+
+        self.assertEqual(second_saved_init.creature_name, second_init.creature_name)
+        self.assertEqual(second_saved_init.initiative_value, second_init.initiative_value)
+        self.assertEqual(second_saved_init.hit_points, second_init.hit_points)

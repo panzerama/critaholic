@@ -160,7 +160,13 @@ class NewVisitorTest(LiveServerTestCase):
         )
         initiative_number_input.send_keys('1')
 
-        # TODO hit point entry
+        # This kobold starts with 12 hit points, and he enters in that amount in the appropriate box
+        initiative_number_input = self.browser.find_element_by_id('initiative_hp_input')
+        self.assertEqual(
+            initiative_number_input.get_attribute('placeholder'),
+            'Enter the monster\'s hit points'
+        )
+        initiative_number_input.send_keys('12')
 
         # Enter
         initiative_submit = self.browser.find_element_by_id('initiative_submit')
@@ -180,3 +186,4 @@ class NewVisitorTest(LiveServerTestCase):
 # next step: initiative entry behaviors: edit, reorder on edit, delete
 # step: add hit points fields
 # step: add notes field
+# TODO form not robust, figure out default values and better error messaging

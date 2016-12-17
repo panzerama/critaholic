@@ -31,6 +31,7 @@ class NewVisitorTest(LiveServerTestCase):
         self.assertIn('Second, enter the initiative.', instruction_text.text)
 
         # She is invited to enter the name of a PC or monster and its initiative
+        # TODO for titles for name, initiative, hit points
         initiative_name_input = self.browser.find_element_by_id('initiative_name_input')
         self.assertEqual(
             initiative_name_input.get_attribute('placeholder'),
@@ -48,12 +49,17 @@ class NewVisitorTest(LiveServerTestCase):
         )
         initiative_number_input.send_keys('10')
 
+        # This displacer beast starts with 100 hit points, and she enters in that amount in the appropriate box
+        # TODO test for hp box
+
         # Enter
         initiative_submit = self.browser.find_element_by_id('initiative_submit')
         initiative_submit.click()
 
         # When she hits enter the page updates and she sees a new, unique URL
-        # the page displays the name of the displacer beast and the number 10
+        # the page displays the name of the displacer beast, the initiative number 10
+        # and the hit point value 100
+        # TODO test for hp value
 
         # test the unique url?
         gina_init_url = self.browser.current_url
@@ -83,6 +89,8 @@ class NewVisitorTest(LiveServerTestCase):
         # She types in '2', ettins not being known for their high dex
         initiative_number_input.send_keys('2')
 
+        # TODO add test for entering second hp value
+
         # And she clicks 'submit'
         initiative_submit = self.browser.find_element_by_id('initiative_submit')
         initiative_submit.click()
@@ -95,6 +103,16 @@ class NewVisitorTest(LiveServerTestCase):
         self.check_for_cells_in_list_table('10')
         self.check_for_cells_in_list_table('Ettin')
         self.check_for_cells_in_list_table('2')
+
+        # Gina runs through the first round of combat and SURPRISE! the ettin is hit
+        # She plugs the damage into the appropriate box and hits update
+        # TODO put negative value in box
+        # the amount is removed from the hp total for that creature.
+        # TODO click submit
+        # TODO check that the amount updated correctly
+        # TODO put positive value in box
+        # TODO click submit
+        # TODO check that the amount updated correctly
 
         # Gary the GM comes to the site too, having heard about the awesomeness
         self.browser.quit()
@@ -124,6 +142,8 @@ class NewVisitorTest(LiveServerTestCase):
         )
         initiative_number_input.send_keys('1')
 
+        # TODO hit point entry
+
         # Enter
         initiative_submit = self.browser.find_element_by_id('initiative_submit')
         initiative_submit.click()
@@ -134,6 +154,7 @@ class NewVisitorTest(LiveServerTestCase):
         self.assertNotEqual(gary_init_url, gina_init_url)
 
         # Gina's items are still not on the page, but Gary's are
+        # TODO add checks for hit point values
         init_text = self.browser.find_element_by_tag_name('body').text
         self.assertNotIn('Displacer beast', init_text)
         self.assertIn('Kobold', init_text)

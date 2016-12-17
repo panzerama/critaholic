@@ -16,6 +16,7 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 from initiative import views
+
 from initiative import urls as init_urls
 
 

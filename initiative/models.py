@@ -8,7 +8,7 @@ class Encounter(models.Model):
 class Initiative(models.Model):
     creature_name = models.TextField(default='')
     initiative_value = models.IntegerField(default=0)
-    encounter = models.ForeignKey(Encounter, default=None)
+    encounter = models.ForeignKey(Encounter, default=None, null=True)
 
     class Meta:
         ordering = ['-initiative_value']

@@ -16,6 +16,7 @@ class NewEncounterTest(TestCase):
 
     def test_name_and_init_input_saved_by_POST(self):
         self.client.post('/init/new', data={'init_name': 'beholder', 'init_num': 18})
+        # TODO hp test
 
         self.assertEqual(Initiative.objects.count(), 1)
         new_init_order = Initiative.objects.first()
@@ -24,6 +25,7 @@ class NewEncounterTest(TestCase):
 
     def test_new_encounter_redirects_after_POST(self):
         response = self.client.post('/init/new', data={'init_name': 'beholder', 'init_num': 18})
+        # TODO hp test
 
         self.assertEqual(response.status_code, 302)
 
@@ -39,6 +41,7 @@ class NewInitiativeTest(TestCase):
 
         self.client.post('/init/%d/add_init' % (this_encounter.id,),
                          data={'init_name': 'beholder', 'init_num': 18})
+        # TODO hp test
 
         self.assertEqual(Initiative.objects.count(), 1)
         new_init = Initiative.objects.first()
@@ -51,6 +54,7 @@ class NewInitiativeTest(TestCase):
 
         response = self.client.post('/init/%d/add_init' % (this_encounter.id,),
                                     data={'init_name': 'beholder', 'init_num': 18})
+        # TODO hp test
 
         self.assertRedirects(response, '/init/%d/' % (this_encounter.id,))
 
@@ -66,10 +70,12 @@ class InitViewTest(TestCase):
         correct_encounter_ = Encounter.objects.create()
         Initiative.objects.create(creature_name='beholder', initiative_value=10, encounter=correct_encounter_)
         Initiative.objects.create(creature_name='displacer beast', initiative_value=11, encounter=correct_encounter_)
+        # TODO hp test
 
         incorrect_encounter_ = Encounter.objects.create()
         Initiative.objects.create(creature_name='Shaltorin', initiative_value=20, encounter=incorrect_encounter_)
         Initiative.objects.create(creature_name='Falkrainne', initiative_value=1, encounter=incorrect_encounter_)
+        # TODO hp test
 
         response = self.client.get('/init/%d/' % (correct_encounter_.id,))
 
@@ -91,6 +97,7 @@ class InitViewTest(TestCase):
 class EncounterAndInitiativeModelTest(TestCase):
 
     def test_save_initiative_object_and_retrieve(self):
+        # todo hp test
         encounter_ = Encounter()
         encounter_.save()
 

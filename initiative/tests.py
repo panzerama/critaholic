@@ -31,6 +31,30 @@ class NewEncounterTest(TestCase):
         self.assertEqual(response['location'], '/init/%d/' % (new_encounter.id,))
 
 
+class NewInitiativeTest(TestCase):
+
+    def test_can_save_initiative_to_existing_list(self):
+        other_encounter = Encounter.objects.create()
+        this_encounter = Encounter.objects.create()
+
+        self.client.post('/init/%d/add_init' % (this_encounter.id,),
+                         data={'init_name': 'beholder', 'init_num': 18})
+
+        self.assertEqual(Initiative.objects.count(), 1)
+        new_init = Initiative.objects.first()
+        self.assertEqual(new_init.creature_name, 'beholder')
+        self.assertEqual(new_init.encounter, this_encounter)
+
+    def test_new_initiative_redirects_after_POST(self):
+        other_encounter = Encounter.objects.create()
+        this_encounter = Encounter.objects.create()
+
+        response = self.client.post('/init/%d/add_init' % (this_encounter.id,),
+                                    data={'init_name': 'beholder', 'init_num': 18})
+
+        self.assertRedirects(response, '/init/%d/' % (this_encounter.id,))
+
+
 class InitViewTest(TestCase):
 
     def test_uses_init_view_template(self):

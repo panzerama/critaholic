@@ -21,6 +21,7 @@ from initiative import views
 urlpatterns = [
     #url(r'^admin/', admin.site.urls),
     url(r'^$', views.home_page, name='home'),
-    url(r'^init/(.+)/$', views.init_view, name='view'),
+    url(r'^init/(\d+)/$', views.init_view, name='view'),
+    url(r'^init/(\d+)/add_init', views.add_init, name='add'),
     url(r'^init/new$', views.new_init, name='new'),
 ]

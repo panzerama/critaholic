@@ -57,10 +57,10 @@ class NewInitiativeTest(TestCase):
 
 class InitViewTest(TestCase):
 
-    def test_uses_init_view_template(self):
+    def test_uses_view_init_template(self):
         encounter_ = Encounter.objects.create()
         response = self.client.get('/init/%d/' % (encounter_.id,))
-        self.assertTemplateUsed(response, 'init_view.html')
+        self.assertTemplateUsed(response, 'view_init.html')
 
     def test_displays_all_monsters_in_order(self):
         correct_encounter_ = Encounter.objects.create()
@@ -80,6 +80,12 @@ class InitViewTest(TestCase):
 
         self.assertNotContains(response, 'Shaltorin')
         self.assertNotContains(response, 'Falkrainne')
+
+    def test_init_view_uses_correct_encounter_id(self):
+        correct_encounter_ = Encounter.objects.create()
+        incorrect_encounter_ = Encounter.objects.create()
+        response = self.client.get('/init/%d/' % (correct_encounter_.id,))
+        self.assertEqual(response.context['encounter'], correct_encounter_)
 
 
 class EncounterAndInitiativeModelTest(TestCase):

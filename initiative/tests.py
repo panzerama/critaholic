@@ -131,8 +131,32 @@ class EncounterAndInitiativeModelTest(TestCase):
 
 class HPModifyTest(TestCase):
 
-    def test_can_add_hp_to_existing_encounter(self):
-        pass
+    def test_hp_add_redirects_and_modifies_init(self):
+        other_encounter = Encounter.objects.create()
+        this_encounter = Encounter.objects.create()
+        this_initiative = Initiative.objects.create(creature_name='Shaltorin', initiative_value=20, hit_points=250,
+                                                    encounter=this_encounter)
 
-    def test_can_subtract_hp_from_existing_encounter(self):
-        pass
+        response = self.client.post('/init/%d/%d/hp_add' % (this_encounter.id, this_initiative.id,),
+                                    data={'Shaltorin_hp_value': '5'})
+
+        self.assertRedirects(response, '/init/%d/' % (this_encounter.id,))
+
+        shaltorin_hp = this_initiative.hit_points
+
+        self.assertEqual(255, shaltorin_hp)
+
+    def test_hp_sub_redirects_and_modifies_init(self):
+        other_encounter = Encounter.objects.create()
+        this_encounter = Encounter.objects.create()
+        this_initiative = Initiative.objects.create(creature_name='Shaltorin', initiative_value=20, hit_points=250,
+                                                    encounter=this_encounter)
+
+        response = self.client.post('/init/%d/%d/hp_sub' % (this_encounter.id, this_initiative.id,),
+                                    data={'Shaltorin_hp_value': '5'})
+
+        self.assertRedirects(response, '/init/%d/' % (this_encounter.id,))
+
+        shaltorin_hp = this_initiative.hit_points
+
+        self.assertEqual(245, shaltorin_hp)

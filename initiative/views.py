@@ -29,8 +29,16 @@ def add_init(request, encounter_id):
                               encounter=encounter_)
     return redirect('/init/%d/' % (encounter_.id,))
 
+
 def hp_add(request, encounter_id, initiative_id):
-    pass
+    initiative_ = Initiative.objects.get(id=initiative_id)
+    initiative_name = initiative_.creature_name
+    hp_amount = int(request.POST[initiative_name + '_hp_value'])
+    initiative_.hit_points += hp_amount
+    initiative_.save()
+
+    return redirect('/init/%s/' % (encounter_id))
+
 
 def hp_sub(request, encounter_id, initiative_id):
-    pass
+    return redirect('/init/%s/' % (encounter_id))

@@ -24,6 +24,7 @@
                     <input id="{{ initiative.creature_name }}_hp_edit" name="{{ initiative.creature_name }}_hp_value" type="text" placeholder="Amount" />
                     <button type="submit" id="{{ initiative.creature_name }}_hp_add">Add</button>
                     <button type="submit" formaction="/init/{{ encounter.id }}/hp_sub" id="{{ initiative.creature_name }}_hp_sub">Subtract</button>
+                    {% csrf_token %}
                 </form>
             </tr>
         {%  endfor %}

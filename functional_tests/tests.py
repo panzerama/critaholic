@@ -122,16 +122,6 @@ class NewVisitorTest(LiveServerTestCase):
         self.check_for_cells_in_list_table('2')
         self.check_for_cells_in_list_table('125')
 
-        # Gina runs through the first round of combat and SURPRISE! the ettin is hit
-        # She plugs the damage into the appropriate box and hits update
-        # TODO put negative value in box
-        # the amount is removed from the hp total for that creature.
-        # TODO click submit
-        # TODO check that the amount updated correctly
-        # TODO put positive value in box
-        # TODO click submit
-        # TODO check that the amount updated correctly
-
         # Gary the GM comes to the site too, having heard about the awesomeness
         self.browser.quit()
         self.browser = webdriver.Chrome('/Users/jd/Resources/chromedriver')
@@ -178,12 +168,123 @@ class NewVisitorTest(LiveServerTestCase):
         self.assertNotEqual(gary_init_url, gina_init_url)
 
         # Gina's items are still not on the page, but Gary's are
-        # TODO add checks for hit point values
         init_text = self.browser.find_element_by_tag_name('body').text
         self.assertNotIn('Displacer beast', init_text)
         self.assertIn('Kobold', init_text)
 
-# next step: initiative entry behaviors: edit, reorder on edit, delete
-# step: add hit points fields
+    def test_user_can_modify_hit_point_values_on_existing_initiative_lines(self):
+        # Gina starts another session, and navigates to critaholic
+        self.browser.get(self.live_server_url)
+
+        # she enters three creatures: two player characters and a monster
+        # Kobold
+        initiative_name_input = self.browser.find_element_by_id('initiative_name_input')
+        self.assertEqual(
+            initiative_name_input.get_attribute('placeholder'),
+            'Enter a monster\'s name'
+        )
+
+        initiative_name_input.send_keys('Kobold')
+
+        initiative_number_input = self.browser.find_element_by_id('initiative_number_input')
+        self.assertEqual(
+            initiative_number_input.get_attribute('placeholder'),
+            'Enter the monster\'s initiative'
+        )
+        initiative_number_input.send_keys('1')
+
+        initiative_number_input = self.browser.find_element_by_id('initiative_hp_input')
+        self.assertEqual(
+            initiative_number_input.get_attribute('placeholder'),
+            'Enter the monster\'s hit points'
+        )
+        initiative_number_input.send_keys('12')
+
+        initiative_submit = self.browser.find_element_by_id('initiative_submit')
+        initiative_submit.click()
+
+        # Falkrainne
+        initiative_name_input = self.browser.find_element_by_id('initiative_name_input')
+        self.assertEqual(
+            initiative_name_input.get_attribute('placeholder'),
+            'Enter a monster\'s name'
+        )
+
+        initiative_name_input.send_keys('Falkrainne')
+
+        initiative_number_input = self.browser.find_element_by_id('initiative_number_input')
+        self.assertEqual(
+            initiative_number_input.get_attribute('placeholder'),
+            'Enter the monster\'s initiative'
+        )
+        initiative_number_input.send_keys('15')
+
+        initiative_number_input = self.browser.find_element_by_id('initiative_hp_input')
+        self.assertEqual(
+            initiative_number_input.get_attribute('placeholder'),
+            'Enter the monster\'s hit points'
+        )
+        initiative_number_input.send_keys('101')
+
+        initiative_submit = self.browser.find_element_by_id('initiative_submit')
+        initiative_submit.click()
+
+        # Shaltorin
+        initiative_name_input = self.browser.find_element_by_id('initiative_name_input')
+        self.assertEqual(
+            initiative_name_input.get_attribute('placeholder'),
+            'Enter a monster\'s name'
+        )
+
+        initiative_name_input.send_keys('Shaltorin')
+
+        initiative_number_input = self.browser.find_element_by_id('initiative_number_input')
+        self.assertEqual(
+            initiative_number_input.get_attribute('placeholder'),
+            'Enter the monster\'s initiative'
+        )
+        initiative_number_input.send_keys('17')
+
+        initiative_number_input = self.browser.find_element_by_id('initiative_hp_input')
+        self.assertEqual(
+            initiative_number_input.get_attribute('placeholder'),
+            'Enter the monster\'s hit points'
+        )
+        initiative_number_input.send_keys('120')
+
+        initiative_submit = self.browser.find_element_by_id('initiative_submit')
+        initiative_submit.click()
+
+        # Gina runs through the first round of combat and SURPRISE! the kobold is hit
+        # She plugs the damage into the appropriate box and hits update
+
+        kobold_hp_test = self.browser.find_element_by_id('Kobold_hp_display')
+        self.assertEqual('12', kobold_hp_test.text)
+
+        hp_input = self.browser.find_element_by_id('Kobold_hp_edit') # find hit points entry box
+        hp_input.send_keys('4')
+        hp_sub_button = self.browser.find_element_by_id('Kobold_hp_sub') # find button to subtract hp value
+        hp_sub_button.click()
+
+        kobold_hp_test = self.browser.find_element_by_id('Kobold_hp_display')
+        self.assertEqual('8', kobold_hp_test.text)
+
+        # Shaltorin's player decides that Falkrainne is doing poorly. He heals her for 12!
+        falkrainne_hp_test = self.browser.find_element_by_id('Falkrainne_hp_display')
+        self.assertEqual('101', falkrainne_hp_test.text)
+
+        hp_input = self.browser.find_element_by_id('Falkrainne_hp_edit')  # find hit points entry box
+        hp_input.send_keys('12')
+        hp_add_button = self.browser.find_element_by_id('Falkrainne_hp_add')  # find button to subtract hp value
+        hp_add_button.click()
+
+        falkrainne_hp_test = self.browser.find_element_by_id('Falkrainne_hp_display')
+        self.assertEqual('113', falkrainne_hp_test.text)
+
+# todo initiative entry behaviors: edit, reorder on edit, delete
+# todo add hit points modification fields
 # step: add notes field
 # TODO form not robust, figure out default values and better error messaging
+# TODO long term goal: multiple authorized users can access and make adjustments to the same screen
+# TODO The different characters and associated powers are listed along with targets. By selecting boxes and values,
+#   such as 'Falkrainne', 'casts heal', 'Shaltorinn', the player can effect each other or monsters.

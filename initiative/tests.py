@@ -127,3 +127,12 @@ class EncounterAndInitiativeModelTest(TestCase):
         self.assertEqual(second_saved_init.creature_name, second_init.creature_name)
         self.assertEqual(second_saved_init.initiative_value, second_init.initiative_value)
         self.assertEqual(second_saved_init.hit_points, second_init.hit_points)
+
+
+class HPModifyTest(TestCase):
+
+    def test_can_add_hp_to_existing_encounter(self):
+        pass
+
+    def test_can_subtract_hp_from_existing_encounter(self):
+        pass

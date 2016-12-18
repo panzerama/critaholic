@@ -19,7 +19,12 @@
             <tr>
                 <td class="initiative_name_display">{{ initiative.creature_name }}</td>
                 <td class="initiative_number_display">{{ initiative.initiative_value }}</td>
-                <td class="initiative_hp_display">{{ initiative.hit_points }}</td>
+                <td class="initiative_hp_display" id="{{ initiative.creature_name }}_hp_display">{{ initiative.hit_points }}</td>
+                <form method="post" action="/init/{{ encounter.id }}/hp_add">
+                    <input id="{{ initiative.creature_name }}_hp_edit" name="{{ initiative.creature_name }}_hp_value" type="text" placeholder="Amount" />
+                    <button type="submit" id="{{ initiative.creature_name }}_hp_add">Add</button>
+                    <button type="submit" formaction="/init/{{ encounter.id }}/hp_sub" id="{{ initiative.creature_name }}_hp_sub">Subtract</button>
+                </form>
             </tr>
         {%  endfor %}
 	</table>

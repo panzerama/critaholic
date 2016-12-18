@@ -28,3 +28,9 @@ def add_init(request, encounter_id):
                               hit_points=request.POST['init_hp'],
                               encounter=encounter_)
     return redirect('/init/%d/' % (encounter_.id,))
+
+def hp_add(request, encounter_id, initiative_id):
+    pass
+
+def hp_sub(request, encounter_id, initiative_id):
+    pass

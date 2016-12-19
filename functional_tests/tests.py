@@ -280,9 +280,9 @@ class NewVisitorTest(LiveServerTestCase):
 
         falkrainne_hp_test = self.browser.find_element_by_id('Falkrainne_hp_display')
         self.assertEqual('113', falkrainne_hp_test.text)
+        
 # todo add tests for redirect? or does that only belong in unit tests
 # todo initiative entry behaviors: edit, reorder on edit, delete
-# todo add hit points modification fields
 # step: add notes field
 # TODO form not robust, figure out default values and better error messaging
 # TODO long term goal: multiple authorized users can access and make adjustments to the same screen

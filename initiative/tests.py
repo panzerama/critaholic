@@ -132,7 +132,6 @@ class EncounterAndInitiativeModelTest(TestCase):
 class HPModifyTest(TestCase):
 
     def test_hp_add_redirects_and_modifies_init(self):
-        other_encounter = Encounter.objects.create()
         this_encounter = Encounter.objects.create()
         this_initiative = Initiative.objects.create(creature_name='Shaltorin', initiative_value=20, hit_points=250,
                                                     encounter=this_encounter)
@@ -142,7 +141,7 @@ class HPModifyTest(TestCase):
 
         self.assertRedirects(response, '/init/%d/' % (this_encounter.id,))
 
-        shaltorin_hp = this_initiative.hit_points
+        shaltorin_hp = Initiative.objects.get(id=this_initiative.id).hit_points
 
         self.assertEqual(255, shaltorin_hp)
 
@@ -157,6 +156,6 @@ class HPModifyTest(TestCase):
 
         self.assertRedirects(response, '/init/%d/' % (this_encounter.id,))
 
-        shaltorin_hp = this_initiative.hit_points
+        shaltorin_hp = Initiative.objects.get(id=this_initiative.id).hit_points
 
         self.assertEqual(245, shaltorin_hp)

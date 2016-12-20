@@ -4,7 +4,7 @@
 	<p id="instructions">First, enter the name of the monster. Second, enter the initiative.</p>
 
 	<form method="post" action="/init/{{ encounter.id }}/add_init">
-        <label for="init_name">Creature</label>
+        <label for="init_name" id="initiative_name_label">Creature</label>
         <input id="initiative_name_input" name="init_name" type="text" placeholder="Enter a monster's name" />
 		<label for="init_num">Initiative</label>
         <input id="initiative_number_input" name="init_num" type="text" placeholder="Enter the monster's initiative" />

@@ -280,7 +280,18 @@ class NewVisitorTest(LiveServerTestCase):
 
         falkrainne_hp_test = self.browser.find_element_by_id('Falkrainne_hp_display')
         self.assertEqual('113', falkrainne_hp_test.text)
-        
+
+    def test_layout_and_styling_load(self):
+        self.browser.get(self.live_server_url)
+        self.browser.set_window_size(1024,768)
+
+        creature_label = self.browser.find_element_by_id('initiative_name_label')
+        self.assertAlmostEqual(
+            creature_label.location['x'],
+            300,
+            delta=5
+        )
+
 # todo add tests for redirect? or does that only belong in unit tests
 # todo initiative entry behaviors: edit, reorder on edit, delete
 # step: add notes field

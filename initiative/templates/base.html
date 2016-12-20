@@ -1,18 +1,51 @@
 <html>
+<head>
 	<title>Critaholic: Initiative Tracker</title>
-	<h1>{% block header_text %}{% endblock %}</h1>
-	<p id="instructions">First, enter the name of the monster. Second, enter the initiative. Third, enter a hit point value (optional).</p>
-
-	<form method="post" action="{% block form_action %}{% endblock %}" >
-        <label for="init_name" id="initiative_name_label">Creature</label>
-        <input id="initiative_name_input" name="init_name" type="text" placeholder="Enter a monster's name" />
-		<label for="init_num">Initiative</label>
-        <input id="initiative_number_input" name="init_num" type="text" placeholder="Enter the monster's initiative" />
-        <label for="init_hp">Starting HP</label>
-        <input id="initiative_hp_input" name="init_hp" type="text" placeholder="Enter the monster's hit points" />
-		<input id="initiative_submit" type="submit" value="Submit">
-		{% csrf_token %}
-	</form>
-    {% block initiative_table %}
-    {% endblock %}
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet" media="screen">
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1 jumbotron">
+                <h1>{% block header_text %}{% endblock %}</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3 text-center">
+                <p id="instructions" class="lead">First, enter the name of the monster.</p>
+                <p class="lead">Second, enter the initiative.</p>
+                <p class="lead">Third, enter a hit point value (optional).</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <form method="post" action="{% block form_action %}{% endblock %}" >
+                    <div class="row">
+                        <div class="col-md-4 form-group">
+                            <label for="init_name" id="initiative_name_label">Creature</label>
+                            <input id="initiative_name_input" name="init_name" type="text" placeholder="Enter a monster's name" />
+                        </div>
+                        <div class="col-md-4 form-group">
+                            <label for="init_num">Initiative</label>
+                            <input id="initiative_number_input" name="init_num" type="text" placeholder="Enter the monster's initiative" />
+                        </div>
+                        <div class="col-md-4 form-group">
+                            <label for="init_hp">Starting HP</label>
+                            <input id="initiative_hp_input" name="init_hp" type="text" placeholder="Enter the monster's hit points" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 col-md-offset-4 form-group text-center">
+                            <input id="initiative_submit" type="submit" value="Submit">
+                            {% csrf_token %}
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+            {% block initiative_table %}
+            {% endblock %}
+        </div>
+    </div>
+</body>
 </html>

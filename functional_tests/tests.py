@@ -28,7 +28,6 @@ class NewVisitorTest(LiveServerTestCase):
         # and gives a brief description of how to use it
         instruction_text = self.browser.find_element_by_id('instructions')
         self.assertIn('First, enter the name of the monster.', instruction_text.text)
-        self.assertIn('Second, enter the initiative.', instruction_text.text)
 
         # She is invited to enter the name of a PC or monster and its initiative
         titles = self.browser.find_elements_by_tag_name('label')
@@ -38,28 +37,18 @@ class NewVisitorTest(LiveServerTestCase):
         self.assertIn('Starting HP', title_text[2])
 
         initiative_name_input = self.browser.find_element_by_id('initiative_name_input')
-        self.assertEqual(
-            initiative_name_input.get_attribute('placeholder'),
-            'Enter a monster\'s name'
-        )
 
         # She types in 'displacer beast' and '10'
         initiative_name_input.send_keys('Displacer beast')
 
         # find the input box for the initiative
         initiative_number_input = self.browser.find_element_by_id('initiative_number_input')
-        self.assertEqual(
-            initiative_number_input.get_attribute('placeholder'),
-            'Enter the monster\'s initiative'
-        )
+
         initiative_number_input.send_keys('10')
 
         # This displacer beast starts with 100 hit points, and she enters in that amount in the appropriate box
         initiative_number_input = self.browser.find_element_by_id('initiative_hp_input')
-        self.assertEqual(
-            initiative_number_input.get_attribute('placeholder'),
-            'Enter the monster\'s hit points'
-        )
+
         initiative_number_input.send_keys('100')
 
         # Enter
@@ -81,30 +70,19 @@ class NewVisitorTest(LiveServerTestCase):
         # There is still a pair of text boxes ready to accept information
         # assert that the form fields are there
         initiative_name_input = self.browser.find_element_by_id('initiative_name_input')
-        self.assertEqual(
-            initiative_name_input.get_attribute('placeholder'),
-            'Enter a monster\'s name'
-        )
 
         # She types in 'ettin
         initiative_name_input.send_keys('Ettin')
 
         # find the input box for the initiative
         initiative_number_input = self.browser.find_element_by_id('initiative_number_input')
-        self.assertEqual(
-            initiative_number_input.get_attribute('placeholder'),
-            'Enter the monster\'s initiative'
-        )
 
         # She types in '2', ettins not being known for their high dex
         initiative_number_input.send_keys('2')
 
         # This ettin starts with 125 hit points, and she enters in that amount in the appropriate box
         initiative_number_input = self.browser.find_element_by_id('initiative_hp_input')
-        self.assertEqual(
-            initiative_number_input.get_attribute('placeholder'),
-            'Enter the monster\'s hit points'
-        )
+
         initiative_number_input.send_keys('125')
 
         # And she clicks 'submit'
@@ -134,28 +112,18 @@ class NewVisitorTest(LiveServerTestCase):
 
         # Gary enters an monster
         initiative_name_input = self.browser.find_element_by_id('initiative_name_input')
-        self.assertEqual(
-            initiative_name_input.get_attribute('placeholder'),
-            'Enter a monster\'s name'
-        )
 
         # He types in 'kobold'
         initiative_name_input.send_keys('Kobold')
 
         # find the input box for the initiative
         initiative_number_input = self.browser.find_element_by_id('initiative_number_input')
-        self.assertEqual(
-            initiative_number_input.get_attribute('placeholder'),
-            'Enter the monster\'s initiative'
-        )
+
         initiative_number_input.send_keys('1')
 
         # This kobold starts with 12 hit points, and he enters in that amount in the appropriate box
         initiative_number_input = self.browser.find_element_by_id('initiative_hp_input')
-        self.assertEqual(
-            initiative_number_input.get_attribute('placeholder'),
-            'Enter the monster\'s hit points'
-        )
+
         initiative_number_input.send_keys('12')
 
         # Enter
@@ -179,25 +147,15 @@ class NewVisitorTest(LiveServerTestCase):
         # she enters three creatures: two player characters and a monster
         # Kobold
         initiative_name_input = self.browser.find_element_by_id('initiative_name_input')
-        self.assertEqual(
-            initiative_name_input.get_attribute('placeholder'),
-            'Enter a monster\'s name'
-        )
 
         initiative_name_input.send_keys('Kobold')
 
         initiative_number_input = self.browser.find_element_by_id('initiative_number_input')
-        self.assertEqual(
-            initiative_number_input.get_attribute('placeholder'),
-            'Enter the monster\'s initiative'
-        )
+
         initiative_number_input.send_keys('1')
 
         initiative_number_input = self.browser.find_element_by_id('initiative_hp_input')
-        self.assertEqual(
-            initiative_number_input.get_attribute('placeholder'),
-            'Enter the monster\'s hit points'
-        )
+
         initiative_number_input.send_keys('12')
 
         initiative_submit = self.browser.find_element_by_id('initiative_submit')
@@ -205,25 +163,15 @@ class NewVisitorTest(LiveServerTestCase):
 
         # Falkrainne
         initiative_name_input = self.browser.find_element_by_id('initiative_name_input')
-        self.assertEqual(
-            initiative_name_input.get_attribute('placeholder'),
-            'Enter a monster\'s name'
-        )
 
         initiative_name_input.send_keys('Falkrainne')
 
         initiative_number_input = self.browser.find_element_by_id('initiative_number_input')
-        self.assertEqual(
-            initiative_number_input.get_attribute('placeholder'),
-            'Enter the monster\'s initiative'
-        )
+
         initiative_number_input.send_keys('15')
 
         initiative_number_input = self.browser.find_element_by_id('initiative_hp_input')
-        self.assertEqual(
-            initiative_number_input.get_attribute('placeholder'),
-            'Enter the monster\'s hit points'
-        )
+
         initiative_number_input.send_keys('101')
 
         initiative_submit = self.browser.find_element_by_id('initiative_submit')
@@ -231,25 +179,15 @@ class NewVisitorTest(LiveServerTestCase):
 
         # Shaltorin
         initiative_name_input = self.browser.find_element_by_id('initiative_name_input')
-        self.assertEqual(
-            initiative_name_input.get_attribute('placeholder'),
-            'Enter a monster\'s name'
-        )
 
         initiative_name_input.send_keys('Shaltorin')
 
         initiative_number_input = self.browser.find_element_by_id('initiative_number_input')
-        self.assertEqual(
-            initiative_number_input.get_attribute('placeholder'),
-            'Enter the monster\'s initiative'
-        )
+
         initiative_number_input.send_keys('17')
 
         initiative_number_input = self.browser.find_element_by_id('initiative_hp_input')
-        self.assertEqual(
-            initiative_number_input.get_attribute('placeholder'),
-            'Enter the monster\'s hit points'
-        )
+
         initiative_number_input.send_keys('120')
 
         initiative_submit = self.browser.find_element_by_id('initiative_submit')
@@ -299,3 +237,6 @@ class NewVisitorTest(LiveServerTestCase):
 # TODO long term goal: multiple authorized users can access and make adjustments to the same screen
 # TODO The different characters and associated powers are listed along with targets. By selecting boxes and values,
 #   such as 'Falkrainne', 'casts heal', 'Shaltorinn', the player can effect each other or monsters.
+# todo encounter name/label?
+# todo should i replace the 'placeholder' text tests i removed with something else to test inputboxes? i don't think
+# it's necessary

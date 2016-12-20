@@ -1,4 +1,4 @@
-{% extends base.html %}
+{% extends 'base.html' %}
 
 {% block header_text %}
     Your encounter:
@@ -8,7 +8,7 @@
     /init/{{ encounter.id }}/add_init
 {% endblock %}
 
-{% block table %}
+{% block initiative_table %}
 	<table id="init_table">
 		{% for initiative in encounter.initiative_set.all %}
             <tr>

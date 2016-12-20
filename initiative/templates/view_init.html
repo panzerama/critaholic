@@ -20,7 +20,7 @@
                         <td class="initiative_hp_edit">
                             <form method="post" action="/init/{{ encounter.id }}/{{ initiative.id }}/hp_add">
                                 <div class="form-group">
-                                    <input id="{{ initiative.creature_name }}_hp_edit" name="{{ initiative.creature_name }}_hp_value" type="text" placeholder="Amount" />
+                                    <input id="{{ initiative.creature_name }}_hp_edit" name="{{ initiative.creature_name }}_hp_value" type="text" />
                                     <button type="submit" id="{{ initiative.creature_name }}_hp_add">Add</button>
                                     <button type="submit" formaction="/init/{{ encounter.id }}/{{ initiative.id }}/hp_sub" id="{{ initiative.creature_name }}_hp_sub">Subtract</button>
                                     {% csrf_token %}

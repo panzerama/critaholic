@@ -240,3 +240,5 @@ class NewVisitorTest(LiveServerTestCase):
 # todo encounter name/label?
 # todo should i replace the 'placeholder' text tests i removed with something else to test inputboxes? i don't think
 # it's necessary
+# todo point to bootstrap service, not included min (necessary?)
+# todo for list of initiative, \t or arrow or enter will highlight 'next' in turn order

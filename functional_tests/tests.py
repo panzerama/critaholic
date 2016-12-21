@@ -1,8 +1,23 @@
+import sys
 from django.test import LiveServerTestCase
 from selenium import webdriver
 
 
 class NewVisitorTest(LiveServerTestCase):
+
+    @classmethod
+    def setUpClass(cls):
+        for arg in sys.argv:
+            if 'liveserver' in arg:
+                cls.server_url = 'http://' + arg.split('=')[1]
+                return
+        super().setUpClass()
+        cls.server_url = cls.live_server_url
+
+    @classmethod
+    def tearDownClass(cls):
+        if cls.server_url == cls.live_server_url:
+            super().tearDownClass()
 
     def setUp(self):
         self.browser = webdriver.Chrome('/Users/jd/Resources/chromedriver')
@@ -20,7 +35,7 @@ class NewVisitorTest(LiveServerTestCase):
         # Gina the GM has heard about a fantastic new app for tracking 
         # initiative. She decides to try it out. She opens a browser and 
         # navigates to the page.
-        self.browser.get(self.live_server_url)
+        self.browser.get(self.server_url)
 
         # The page title reads 'Critaholic'
         self.assertIn('Critaholic', self.browser.title)
@@ -103,7 +118,7 @@ class NewVisitorTest(LiveServerTestCase):
         # Gary the GM comes to the site too, having heard about the awesomeness
         self.browser.quit()
         self.browser = webdriver.Chrome('/Users/jd/Resources/chromedriver')
-        self.browser.get(self.live_server_url)
+        self.browser.get(self.server_url)
 
         # He sees a brand new page, no sign of anyone else's encounter
         init_text = self.browser.find_element_by_tag_name('body').text
@@ -142,7 +157,7 @@ class NewVisitorTest(LiveServerTestCase):
 
     def test_user_can_modify_hit_point_values_on_existing_initiative_lines(self):
         # Gina starts another session, and navigates to critaholic
-        self.browser.get(self.live_server_url)
+        self.browser.get(self.server_url)
 
         # she enters three creatures: two player characters and a monster
         # Kobold
@@ -220,13 +235,13 @@ class NewVisitorTest(LiveServerTestCase):
         self.assertEqual('113', falkrainne_hp_test.text)
 
     def test_layout_and_styling_load(self):
-        self.browser.get(self.live_server_url)
+        self.browser.get(self.server_url)
         self.browser.set_window_size(1024,768)
 
-        creature_label = self.browser.find_element_by_id('initiative_name_label')
+        instructions = self.browser.find_element_by_id('instructions')
         self.assertAlmostEqual(
-            creature_label.location['x'],
-            300,
+            instructions.location['x'] + (instructions.size['width']/2),
+            512,
             delta=5
         )
 
@@ -238,7 +253,5 @@ class NewVisitorTest(LiveServerTestCase):
 # TODO The different characters and associated powers are listed along with targets. By selecting boxes and values,
 #   such as 'Falkrainne', 'casts heal', 'Shaltorinn', the player can effect each other or monsters.
 # todo encounter name/label?
-# todo should i replace the 'placeholder' text tests i removed with something else to test inputboxes? i don't think
-# it's necessary
 # todo point to bootstrap service, not included min (necessary?)
 # todo for list of initiative, \t or arrow or enter will highlight 'next' in turn order

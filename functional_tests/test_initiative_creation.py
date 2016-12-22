@@ -1,36 +1,9 @@
-import sys
-from django.contrib.staticfiles.testing import StaticLiveServerTestCase
+from .base import FunctionalTest
 from selenium import webdriver
+from unittest import skip
 
 
-class NewVisitorTest(StaticLiveServerTestCase):
-
-    @classmethod
-    def setUpClass(cls):
-        for arg in sys.argv:
-            if 'liveserver' in arg:
-                cls.server_url = 'http://' + arg.split('=')[1]
-                cls.live_server_url = ''
-                return
-        super().setUpClass()
-        cls.server_url = cls.live_server_url
-
-    @classmethod
-    def tearDownClass(cls):
-        if cls.server_url == cls.live_server_url:
-            super().tearDownClass()
-
-    def setUp(self):
-        self.browser = webdriver.Chrome('/Users/jd/Resources/chromedriver')
-        self.browser.implicitly_wait(3)
-
-    def tearDown(self):
-        self.browser.quit()
-
-    def check_for_cells_in_list_table(self, cell_text):
-        table = self.browser.find_element_by_id('init_table')
-        cells = table.find_elements_by_tag_name('td')
-        self.assertIn(cell_text, [cell.text for cell in cells])
+class NewEncounterTest(FunctionalTest):
 
     def test_new_user_can_create_initiative(self):
         # Gina the GM has heard about a fantastic new app for tracking 
@@ -193,10 +166,10 @@ class NewVisitorTest(StaticLiveServerTestCase):
         initiative_submit = self.browser.find_element_by_id('initiative_submit')
         initiative_submit.click()
 
-        # Shaltorin
+        # Shaltorinn
         initiative_name_input = self.browser.find_element_by_id('initiative_name_input')
 
-        initiative_name_input.send_keys('Shaltorin')
+        initiative_name_input.send_keys('Shaltorinn')
 
         initiative_number_input = self.browser.find_element_by_id('initiative_number_input')
 
@@ -223,7 +196,7 @@ class NewVisitorTest(StaticLiveServerTestCase):
         kobold_hp_test = self.browser.find_element_by_id('Kobold_hp_display')
         self.assertEqual('8', kobold_hp_test.text)
 
-        # Shaltorin's player decides that Falkrainne is doing poorly. He heals her for 12!
+        # Shaltorinn's player decides that Falkrainne is doing poorly. He heals her for 12!
         falkrainne_hp_test = self.browser.find_element_by_id('Falkrainne_hp_display')
         self.assertEqual('101', falkrainne_hp_test.text)
 
@@ -234,25 +207,3 @@ class NewVisitorTest(StaticLiveServerTestCase):
 
         falkrainne_hp_test = self.browser.find_element_by_id('Falkrainne_hp_display')
         self.assertEqual('113', falkrainne_hp_test.text)
-
-    def test_layout_and_styling_load(self):
-        self.browser.get(self.server_url)
-        self.browser.set_window_size(1024,768)
-
-        instructions = self.browser.find_element_by_id('instructions')
-        self.assertAlmostEqual(
-            instructions.location['x'] + (instructions.size['width']/2),
-            512,
-            delta=5
-        )
-
-        # TODO form not robust, figure out default values and better error messaging
-# todo add tests for redirect? or does that only belong in unit tests
-# todo initiative entry behaviors: edit, reorder on edit, delete
-# step: add notes field
-# TODO long term goal: multiple authorized users can access and make adjustments to the same screen
-# TODO The different characters and associated powers are listed along with targets. By selecting boxes and values,
-#   such as 'Falkrainne', 'casts heal', 'Shaltorinn', the player can effect each other or monsters.
-# todo encounter name/label?
-# todo point to bootstrap service, not included min (necessary?)
-# todo for list of initiative, \t or arrow or enter will highlight 'next' in turn order

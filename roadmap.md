@@ -1,9 +1,46 @@
 # Roadmap for Critaholic
+In no particular order...
 
-###TODO
-* differentiate staging and live deployment
-* multiple users creating and editing single encounter in real time
-* differentiation between GM and Player roles, granting different options for initiative/character/item
-* Character entry
-* Action entry
-* Item entry
+## Critaholic
+**The entire suite of tools**
+
+###High
+* The GM or GM's should have a visibility definition above Players (user roles) that define the information that can be 
+    seen, the changes that can be made, or the control of different entities.
+    
+###Low
+* Update the templates to use bootstrap service from CDN
+
+## Initiative
+**Tool for tracking intiative of various actors in an encounter**
+
+###High
+* Form validation
+* Behavior for delaying or holding an action
+* Notes field
+* Encounter name or label
+* unique urls or slugs
+
+###Future
+* The different characters and associated powers are listed along with targets. By selecting boxes and values, such as 
+    'Falkrainne', 'casts heal', 'Shaltorinn', the player can effect each other or monsters.
+* multiple users creating and editing single encounter in real time (depends on user roles above)
+* for list of initiative, \t or arrow or enter will highlight 'next' in turn order
+
+## Party
+**Character notes and details for PC's and critical NPC's in party**
+
+* Character model and form
+* Ownership (depends on user roles above)
+
+## Hero
+**Powers and abilities for individual PC's**
+
+* Ability model and form
+* Ability linked to item, modifying ability when used in encounter
+
+## Backpack
+**Items and their powers/benefits for PC's, NPC's, or other entities.**
+
+* Item model and form
+* Item association with Ability and Character, one-to-many

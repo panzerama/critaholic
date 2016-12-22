@@ -47,6 +47,7 @@ def _update_settings(source_folder, site_name):
 def _update_virtualenv(source_folder):
     virtualenv_folder = source_folder + '/../virtualenv'
     if not exists(virtualenv_folder + '/bin/pip'):
+        run('sudo apt-get install python3-venv')
         run('python3 -m venv %s' % (virtualenv_folder,))
     run('%s/bin/pip install -r %s/requirements.txt' % (
         virtualenv_folder, source_folder

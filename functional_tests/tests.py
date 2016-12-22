@@ -246,10 +246,10 @@ class NewVisitorTest(StaticLiveServerTestCase):
             delta=5
         )
 
+        # TODO form not robust, figure out default values and better error messaging
 # todo add tests for redirect? or does that only belong in unit tests
 # todo initiative entry behaviors: edit, reorder on edit, delete
 # step: add notes field
-# TODO form not robust, figure out default values and better error messaging
 # TODO long term goal: multiple authorized users can access and make adjustments to the same screen
 # TODO The different characters and associated powers are listed along with targets. By selecting boxes and values,
 #   such as 'Falkrainne', 'casts heal', 'Shaltorinn', the player can effect each other or monsters.

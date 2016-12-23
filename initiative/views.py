@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 # from django.http import HttpResponse
 from initiative.models import Initiative, Encounter
+from django.core.exceptions import  ValidationError
 
 
 def home_page(request):
@@ -9,15 +10,29 @@ def home_page(request):
 
 def view_init(request, encounter_id):
     encounter_ = Encounter.objects.get(id=encounter_id)
+    if request.method == 'POST':
+        Initiative.objects.create(creature_name=request.POST['init_name'],
+                                  initiative_value=request.POST['init_num'],
+                                  hit_points=request.POST['init_hp'],
+                                  encounter=encounter_)
+        return redirect('/init/%d/' % (encounter_.id))
     return render(request, 'view_init.html', {'encounter': encounter_})
 
 
 def new_init(request):
     encounter_ = Encounter.objects.create()
-    Initiative.objects.create(creature_name=request.POST['init_name'],
+    initiative_ = Initiative.objects.create(creature_name=request.POST['init_name'],
                               initiative_value=request.POST['init_num'],
                               hit_points=request.POST['init_hp'],
                               encounter=encounter_)
+    try:
+        initiative_.full_clean()
+        initiative_.save()
+    except ValidationError:
+        encounter_.delete()
+        error = 'An initiative entry must have a name!'
+        return render(request, 'home.html', {'error': error})
+
     return redirect('/init/%d/' % (encounter_.id))
 
 

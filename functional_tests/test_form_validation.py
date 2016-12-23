@@ -16,31 +16,9 @@ class FormValidationTest(FunctionalTest):
         self.assertIn('Initiative', title_text[1])
         self.assertIn('Starting HP', title_text[2])
 
-        # She hits Enter on the empty input box
-        initiative_submit = self.browser.find_element_by_id('initiative_submit')
-        initiative_submit.click()
-
-        # The home page refreshes, and there is an error message saying that initiative items cannot be blank
-        error_message = self.browser.find_element_by_css_selector('.has_error')
-        self.assertEqual(error_message.text, "An initiative entry must have a name!")
-
-        # She tries again with some text for the initiative, which now works
+        # She hits Enter without filling in the name field
         initiative_name_input = self.browser.find_element_by_id('initiative_name_input')
-        initiative_name_input.send_keys('Displacer beast')
-
-        initiative_number_input = self.browser.find_element_by_id('initiative_hp_input')
-        initiative_number_input.send_keys('100')
-
-        initiative_submit = self.browser.find_element_by_id('initiative_submit')
-        initiative_submit.click()
-
-        # She receives a similar warning on the encounter page
-        error_message = self.browser.find_element_by_css_selector('.has_error')
-        self.assertEqual(error_message.text, "An initiative entry must have an initiative value")
-
-        # And she can correct it by filling some text in
-        initiative_name_input = self.browser.find_element_by_id('initiative_name_input')
-        initiative_name_input.send_keys('Displacer beast')
+        initiative_name_input.send_keys('')
 
         initiative_number_input = self.browser.find_element_by_id('initiative_number_input')
         initiative_number_input.send_keys('10')
@@ -51,9 +29,59 @@ class FormValidationTest(FunctionalTest):
         initiative_submit = self.browser.find_element_by_id('initiative_submit')
         initiative_submit.click()
 
-        gina_init_url = self.browser.current_url
-        self.assertRegex(gina_init_url, '/init/.+')
+        # The home page refreshes, and there is an error message saying that initiative items cannot be blank
+        error_message = self.browser.find_element_by_css_selector('.has_error')
+        self.assertEqual(error_message.text, "An initiative entry must have a name!")
 
+        # The second time she does it the right way
+        initiative_name_input = self.browser.find_element_by_id('initiative_name_input')
+        initiative_name_input.send_keys('Displacer Beast')
+
+        initiative_number_input = self.browser.find_element_by_id('initiative_number_input')
+        initiative_number_input.send_keys('10')
+
+        initiative_number_input = self.browser.find_element_by_id('initiative_hp_input')
+        initiative_number_input.send_keys('100')
+
+        initiative_submit = self.browser.find_element_by_id('initiative_submit')
+        initiative_submit.click()
+
+        # And it checks out as working
         self.check_for_cells_in_list_table('Displacer beast')
         self.check_for_cells_in_list_table('10')
         self.check_for_cells_in_list_table('100')
+
+        # For some perverse reason, she does it again.
+        initiative_name_input = self.browser.find_element_by_id('initiative_name_input')
+        initiative_name_input.send_keys('')
+
+        initiative_number_input = self.browser.find_element_by_id('initiative_number_input')
+        initiative_number_input.send_keys('6')
+
+        initiative_number_input = self.browser.find_element_by_id('initiative_hp_input')
+        initiative_number_input.send_keys('80')
+
+        initiative_submit = self.browser.find_element_by_id('initiative_submit')
+        initiative_submit.click()
+
+        # Sure enough, this produces a warning
+        error_message = self.browser.find_element_by_css_selector('.has_error')
+        self.assertEqual(error_message.text, "An initiative entry must have a name!")
+
+        # She tries it one more time
+        initiative_name_input = self.browser.find_element_by_id('initiative_name_input')
+        initiative_name_input.send_keys('Young Dragon')
+
+        initiative_number_input = self.browser.find_element_by_id('initiative_number_input')
+        initiative_number_input.send_keys('6')
+
+        initiative_number_input = self.browser.find_element_by_id('initiative_hp_input')
+        initiative_number_input.send_keys('80')
+
+        initiative_submit = self.browser.find_element_by_id('initiative_submit')
+        initiative_submit.click()
+
+        # And it checks out as working
+        self.check_for_cells_in_list_table('Young Dragon')
+        self.check_for_cells_in_list_table('6')
+        self.check_for_cells_in_list_table('80')

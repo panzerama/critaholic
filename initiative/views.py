@@ -10,13 +10,20 @@ def home_page(request):
 
 def view_init(request, encounter_id):
     encounter_ = Encounter.objects.get(id=encounter_id)
+    error = None
     if request.method == 'POST':
-        Initiative.objects.create(creature_name=request.POST['init_name'],
+        try:
+            initiative_ = Initiative.objects.create(creature_name=request.POST['init_name'],
                                   initiative_value=request.POST['init_num'],
                                   hit_points=request.POST['init_hp'],
                                   encounter=encounter_)
-        return redirect('/init/%d/' % (encounter_.id))
-    return render(request, 'view_init.html', {'encounter': encounter_})
+            initiative_.full_clean()
+            initiative_.save()
+            return redirect('/init/%d/' % (encounter_.id))
+        except ValidationError:
+            initiative_.delete()
+            error = 'An initiative entry must have a name!'
+    return render(request, 'view_init.html', {'encounter': encounter_, 'error': error})
 
 
 def new_init(request):
@@ -34,15 +41,6 @@ def new_init(request):
         return render(request, 'home.html', {'error': error})
 
     return redirect('/init/%d/' % (encounter_.id))
-
-
-def add_init(request, encounter_id):
-    encounter_ = Encounter.objects.get(id=encounter_id)
-    Initiative.objects.create(creature_name=request.POST['init_name'],
-                              initiative_value=request.POST['init_num'],
-                              hit_points=request.POST['init_hp'],
-                              encounter=encounter_)
-    return redirect('/init/%d/' % (encounter_.id,))
 
 
 def hp_add(request, encounter_id, initiative_id):

@@ -101,6 +101,15 @@ class InitViewTest(TestCase):
 
         self.assertRedirects(response, '/init/%d/' % (this_encounter.id,))
 
+    def test_init_validation_errors_displayed_on_init_view(self):
+        encounter_ = Encounter.objects.create()
+        response = self.client.post('/init/%d/' % encounter_.id, data={'init_name': '', 'init_num': 18, 'init_hp': 150})
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'view_init.html')
+        expected_error = 'An initiative entry must have a name!'
+        self.assertContains(response, expected_error)
+
 
 class HPModifyTest(TestCase):
 

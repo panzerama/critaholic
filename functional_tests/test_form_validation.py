@@ -30,7 +30,7 @@ class FormValidationTest(FunctionalTest):
         initiative_submit.click()
 
         # The home page refreshes, and there is an error message saying that initiative items cannot be blank
-        error_message = self.browser.find_element_by_css_selector('.has_error')
+        error_message = self.browser.find_element_by_css_selector('.has-error')
         self.assertEqual(error_message.text, "An initiative entry must have a name!")
 
         # The second time she does it the right way
@@ -47,7 +47,7 @@ class FormValidationTest(FunctionalTest):
         initiative_submit.click()
 
         # And it checks out as working
-        self.check_for_cells_in_list_table('Displacer beast')
+        self.check_for_cells_in_list_table('Displacer Beast')
         self.check_for_cells_in_list_table('10')
         self.check_for_cells_in_list_table('100')
 
@@ -65,7 +65,7 @@ class FormValidationTest(FunctionalTest):
         initiative_submit.click()
 
         # Sure enough, this produces a warning
-        error_message = self.browser.find_element_by_css_selector('.has_error')
+        error_message = self.browser.find_element_by_css_selector('.has-error')
         self.assertEqual(error_message.text, "An initiative entry must have a name!")
 
         # She tries it one more time

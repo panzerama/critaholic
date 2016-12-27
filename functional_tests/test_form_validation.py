@@ -85,3 +85,20 @@ class FormValidationTest(FunctionalTest):
         self.check_for_cells_in_list_table('Young Dragon')
         self.check_for_cells_in_list_table('6')
         self.check_for_cells_in_list_table('80')
+
+        # Finally, she hits Enter without filling in the number field
+        initiative_name_input = self.browser.find_element_by_id('initiative_name_input')
+        initiative_name_input.send_keys('Falkrainne')
+
+        initiative_number_input = self.browser.find_element_by_id('initiative_number_input')
+        initiative_number_input.send_keys('')
+
+        initiative_number_input = self.browser.find_element_by_id('initiative_hp_input')
+        initiative_number_input.send_keys('134')
+
+        initiative_submit = self.browser.find_element_by_id('initiative_submit')
+        initiative_submit.click()
+
+        # The home page refreshes, and there is an error message saying that initiative items cannot be blank
+        error_message = self.browser.find_element_by_css_selector('.has-error')
+        self.assertEqual(error_message.text, "An initiative entry must have a valid initiative value!")

@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block form_action %}
-    /init/{{ encounter.id }}/
+    {% url 'view' encounter.id %}
 {% endblock %}
 
 {% block initiative_table %}
@@ -26,11 +26,11 @@
                         <td class="initiative_number_display">{{ initiative.initiative_value }}</td>
                         <td class="initiative_hp_display" id="{{ initiative.creature_name }}_hp_display">{{ initiative.hit_points }}</td>
                         <td class="initiative_hp_edit">
-                            <form method="post" action="/init/{{ encounter.id }}/{{ initiative.id }}/hp_add">
+                            <form method="post" action="{% url 'hp add' encounter.id initiative.id %}">
                                 <div class="form-group">
                                     <input id="{{ initiative.creature_name }}_hp_edit" name="{{ initiative.creature_name }}_hp_value" type="text" />
                                     <button type="submit" id="{{ initiative.creature_name }}_hp_add">Add</button>
-                                    <button type="submit" formaction="/init/{{ encounter.id }}/{{ initiative.id }}/hp_sub" id="{{ initiative.creature_name }}_hp_sub">Subtract</button>
+                                    <button type="submit" formaction="{% url 'hp sub' encounter.id initiative.id %}" id="{{ initiative.creature_name }}_hp_sub">Subtract</button>
                                     {% csrf_token %}
                                 </div>
                             </form>

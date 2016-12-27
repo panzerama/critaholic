@@ -2,6 +2,7 @@ from django.core.urlresolvers import resolve
 from django.test import TestCase
 from initiative.views import home_page
 from initiative.models import Initiative, Encounter
+import math
 
 
 class HomePageTest(TestCase):
@@ -101,7 +102,7 @@ class InitViewTest(TestCase):
 
         self.assertRedirects(response, '/init/%d/' % (this_encounter.id,))
 
-    def test_init_validation_errors_displayed_on_init_view(self):
+    def test_init_name_validation_errors_displayed_on_init_view(self):
         encounter_ = Encounter.objects.create()
         response = self.client.post('/init/%d/' % encounter_.id, data={'init_name': '', 'init_num': 18, 'init_hp': 150})
 

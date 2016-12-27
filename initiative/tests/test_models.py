@@ -1,4 +1,5 @@
 from django.core.exceptions import ValidationError
+from django.db.utils import IntegrityError
 from django.test import TestCase
 from initiative.models import Initiative, Encounter
 from unittest import skip
@@ -41,10 +42,14 @@ class EncounterAndInitiativeModelTest(TestCase):
         self.assertEqual(second_saved_init.initiative_value, second_init.initiative_value)
         self.assertEqual(second_saved_init.hit_points, second_init.hit_points)
 
-    @skip
     def test_cannot_save_initiative_without_init_value(self):
-        # need to sort out a way to test this, not sure given the data type
-        pass
+        encounter_ = Encounter.objects.create()
+
+        initiative_ = Initiative(creature_name='Shaltorinn', initiative_value=None,
+                                 hit_points=100, encounter=encounter_)
+        with self.assertRaises(IntegrityError):
+            initiative_.save()
+            initiative_.full_clean()
 
     def test_cannot_save_initiative_without_name_value(self):
         encounter_ = Encounter.objects.create()

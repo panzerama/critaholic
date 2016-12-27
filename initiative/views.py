@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
 # from django.http import HttpResponse
 from initiative.models import Initiative, Encounter
-from django.core.exceptions import  ValidationError
+from django.core.exceptions import ValidationError
+from django.db.utils import IntegrityError
 
 
 def home_page(request):
@@ -23,6 +24,9 @@ def view_init(request, encounter_id):
         except ValidationError:
             initiative_.delete()
             error = 'An initiative entry must have a name!'
+        except IntegrityError:
+            initiative_.delete()
+            error = 'An initiative entry must have a valid initiative value!'
     return render(request, 'view_init.html', {'encounter': encounter_, 'error': error})
 
 
@@ -38,6 +42,10 @@ def new_init(request):
     except ValidationError:
         encounter_.delete()
         error = 'An initiative entry must have a name!'
+        return render(request, 'home.html', {'error': error})
+    except IntegrityError:
+        encounter_.delete()
+        error = 'An initiative entry must have a valid initiative value!'
         return render(request, 'home.html', {'error': error})
 
     return redirect('/init/%d/' % (encounter_.id))

@@ -6,10 +6,11 @@ In no particular order...
 
 ###High
 * The GM or GM's should have a visibility definition above Players (user roles) that define the information that can be 
-    seen, the changes that can be made, or the control of different entities.
+    seen, the changes that can be made, or the control of different entities. **User Authentication**
     
 ###Low
 * Update the templates to use bootstrap service from CDN
+* Admin panel from a superuser perspective and a GM's perspective
 
 ## Initiative
 **Tool for tracking intiative of various actors in an encounter**

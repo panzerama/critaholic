@@ -24,26 +24,26 @@ def view_init(request, encounter_id):
         except ValidationError:
             initiative_.delete()
             error = 'An initiative entry must have a name!'
-        except IntegrityError:
-            initiative_.delete()
+        except ValueError:
             error = 'An initiative entry must have a valid initiative value!'
     return render(request, 'view_init.html', {'encounter': encounter_, 'error': error})
 
 
 def new_init(request):
     encounter_ = Encounter.objects.create()
-    initiative_ = Initiative.objects.create(creature_name=request.POST['init_name'],
-                              initiative_value=request.POST['init_num'],
-                              hit_points=request.POST['init_hp'],
-                              encounter=encounter_)
+
     try:
+        initiative_ = Initiative.objects.create(creature_name=request.POST['init_name'],
+                                                initiative_value=request.POST['init_num'],
+                                                hit_points=request.POST['init_hp'],
+                                                encounter=encounter_)
         initiative_.full_clean()
         initiative_.save()
     except ValidationError:
         encounter_.delete()
         error = 'An initiative entry must have a name!'
         return render(request, 'home.html', {'error': error})
-    except IntegrityError:
+    except ValueError:
         encounter_.delete()
         error = 'An initiative entry must have a valid initiative value!'
         return render(request, 'home.html', {'error': error})

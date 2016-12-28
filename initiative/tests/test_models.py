@@ -12,7 +12,7 @@ class EncounterAndInitiativeModelTest(TestCase):
         encounter_.save()
 
         first_init = Initiative()
-        first_init.creature_name = 'Shaltorin'
+        first_init.creature_name = 'Shaltorinn'
         first_init.initiative_value = 20
         first_init.hit_points = 250
         first_init.encounter = encounter_
@@ -59,3 +59,8 @@ class EncounterAndInitiativeModelTest(TestCase):
         with self.assertRaises(ValidationError):
             initiative_.save()
             initiative_.full_clean()
+
+    def test_get_absolute_url(self):
+        encounter_ = Encounter.objects.create()
+
+        self.assertEqual(encounter_.get_absolute_url(), '/init/%d/' % encounter_.id)

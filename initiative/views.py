@@ -20,7 +20,7 @@ def view_init(request, encounter_id):
                                   encounter=encounter_)
             initiative_.full_clean()
             initiative_.save()
-            return redirect('/init/%d/' % (encounter_.id))
+            return redirect(encounter_)
         except ValidationError:
             initiative_.delete()
             error = 'An initiative entry must have a name!'
@@ -48,7 +48,7 @@ def new_init(request):
         error = 'An initiative entry must have a valid initiative value!'
         return render(request, 'home.html', {'error': error})
 
-    return redirect('/init/%d/' % (encounter_.id))
+    return redirect(encounter_)
 
 
 def hp_add(request, encounter_id, initiative_id):
@@ -58,7 +58,7 @@ def hp_add(request, encounter_id, initiative_id):
     initiative_.hit_points += hp_amount
     initiative_.save()
 
-    return redirect('/init/%s/' % (encounter_id))
+    return redirect(Encounter.objects.get(id=encounter_id))
 
 
 def hp_sub(request, encounter_id, initiative_id):
@@ -68,4 +68,4 @@ def hp_sub(request, encounter_id, initiative_id):
     initiative_.hit_points -= hp_amount
     initiative_.save()
 
-    return redirect('/init/%s/' % (encounter_id))
+    return redirect(Encounter.objects.get(id=encounter_id))

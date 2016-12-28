@@ -1,8 +1,11 @@
 from django.db import models
+from django.core.urlresolvers import reverse
 
 
 class Encounter(models.Model):
-    pass
+
+    def get_absolute_url(self):
+        return reverse('view', args=[self.id])
 
 
 class Initiative(models.Model):

@@ -21,3 +21,8 @@ you don’t have to be smart all the time."
 * Django has a large, supportive community
 * Django is broadly used
 * Python is a versatile language with which I have some experience
+
+### What is what?
+
+Critaholic is a django based webapp designed to serve GMs with a suite of tools for managing 
+their RPG sessions. It assumes a 5e-like, initiative-based combat structure.

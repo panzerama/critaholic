@@ -16,7 +16,7 @@ In no particular order...
 **Tool for tracking intiative of various actors in an encounter**
 
 ###High
-* Form validation
+* Form validation *check*
 * Behavior for delaying or holding an action
 * Notes field
 * Encounter name or label

@@ -19,12 +19,27 @@ class NewCharacterTest(FunctionalTest):
         self.assertIn('First, enter your character\'s name.', instruction_text.text)
 
         # She is invited to enter the name of a character
+        character_name_input = self.browser.find_element_by_id('character_name_input')
 
+        # She types in 'displacer beast' and '10'
+        character_name_input.send_keys('Nils \"Carver\" Dacke')
 
         # And asked to enter a short description
+        character_description_input = self.browser.find_element_by_id('character_description_input')
+
+        # She types in 'displacer beast' and '10'
+        character_description_input.send_keys('A murderous rogue with delusions of infamy.')
 
         # That done, she clicks on submit
+        character_submit = self.browser.find_element_by_id('character_submit')
+        character_submit.click()
 
         # and the page refreshes to a view of the character
+        character_name = self.browser.find_element_by_id('character_name')
+        self.assertEqual(character_name.text, 'Nils \"Carver\" Dacke')
+
+        character_description = self.browser.find_element_by_id('character_description')
+        self.assertEqual(character_description.text, 'A murderous rogue with delusions of infamy.')
+
         self.fail("Continue the user story!")
 

@@ -16,6 +16,27 @@
                 <p class="lead">Second, add a brief description.</p>
             </div>
         </div>
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <form method="post" action="{% url 'new' %}" >
+                    <div class="row">
+                        <div class="col-md-4 form-group">
+                            <label for="character_name" id="character_name_label">Character Name</label>
+                            <input id="character_name_input" name="character_name" type="text"  />
+                        </div>
+                        <div class="col-md-4 form-group">
+                            <label for="character_description">Description</label>
+                            <input id="character_description_input" name="character_description" type="text"  />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 col-md-offset-4 form-group text-center">
+                            <input id="character_submit" type="submit" value="Submit">
+                            {% csrf_token %}
+                        </div>
+                    </div>
+                </form>
+            </div>
     </div>
 </body>
 </html>

@@ -1,4 +1,4 @@
 from django.shortcuts import render
 
-def home_page(request):
-    pass
+def char_page(request):
+    return render(request, 'char_home.html')

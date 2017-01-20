@@ -19,4 +19,12 @@ class NewCharacterTest(FunctionalTest):
         self.assertIn('First, enter your character\'s name.', instruction_text.text)
 
         # She is invited to enter the name of a character
+
+
+        # And asked to enter a short description
+
+        # That done, she clicks on submit
+
+        # and the page refreshes to a view of the character
         self.fail("Continue the user story!")
+

@@ -15,16 +15,17 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
-from critaholic import views
-from initiative import views as init_views
+from critaholic import views as base_views
 
+from initiative import views as init_views
 from initiative import urls as init_urls
+
 from character import urls as character_urls
 
 
 urlpatterns = [
     #url(r'^admin/', admin.site.urls),
-    url(r'^$', init_views.home_page, name='home'),
+    url(r'^$', base_views.home_page, name='home'),
     url(r'^init/', include(init_urls)),
     url(r'^character/', include(character_urls))
 ]

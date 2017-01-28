@@ -1,16 +1,7 @@
 from django.core.urlresolvers import resolve
 from django.test import TestCase
-from initiative.views import home_page
 from initiative.models import Initiative, Encounter
 import math
-
-
-class HomePageTest(TestCase):
-
-    # TODO later on, change the home page to a menu system and move this to '/init'
-    def test_root_url_uses_home_page(self):
-        found = resolve('/')
-        self.assertEqual(found.func, home_page)
 
 
 class NewEncounterTest(TestCase):

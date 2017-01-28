@@ -33,9 +33,8 @@ class HomePageTest(FunctionalTest):
         home_link = self.browser.find_element_by_id('banner_link')
         home_link.click()
 
-
+        self.fail('write the future tests')
         # Future changes:
         # make sure the links to various apps are modified by class when they have been visited?
         # somehow check if animations or classes are displayed correctly?
         # expand to check that all of the options are there
-        self.fail("write the tests")

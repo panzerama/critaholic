@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
+from critaholic import views
 from initiative import views as init_views
 
 from initiative import urls as init_urls

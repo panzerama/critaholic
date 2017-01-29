@@ -9,7 +9,7 @@ class NewEncounterTest(FunctionalTest):
         # Gina the GM has heard about a fantastic new app for tracking 
         # initiative. She decides to try it out. She opens a browser and 
         # navigates to the page.
-        self.browser.get(self.server_url)
+        self.browser.get(self.server_url + '/init/')
 
         # The page title reads 'Critaholic'
         self.assertIn('Critaholic', self.browser.title)
@@ -92,7 +92,7 @@ class NewEncounterTest(FunctionalTest):
         # Gary the GM comes to the site too, having heard about the awesomeness
         self.browser.quit()
         self.browser = webdriver.Chrome('/Users/jd/Resources/chromedriver')
-        self.browser.get(self.server_url)
+        self.browser.get(self.server_url + '/init/')
 
         # He sees a brand new page, no sign of anyone else's encounter
         init_text = self.browser.find_element_by_tag_name('body').text
@@ -131,7 +131,7 @@ class NewEncounterTest(FunctionalTest):
 
     def test_user_can_modify_hit_point_values_on_existing_initiative_lines(self):
         # Gina starts another session, and navigates to critaholic
-        self.browser.get(self.server_url)
+        self.browser.get(self.server_url + '/init/')
 
         # she enters three creatures: two player characters and a monster
         # Kobold

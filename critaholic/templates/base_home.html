@@ -3,13 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <title>Critaholic</title>
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet" media="screen">
 </head>
 <body>
     <div class="container-fluid">
         <div class="row">
+            <div class="col-md-10 col-md-offset-1 jumbotron">
+                <h2>Critaholic</h2>
+            </div>
+        </div>
+        <div class="row">
                 <div class="col-md-6 col-md-offset-3 text-center">
                     <p id="introduction" class="lead">Critaholic is a suite of tools for DM's.</p>
                 </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3 text-center">
+                <a href="{% url 'init home' %}">Initiative</a><br/>
+                <a href="{% url 'character home' %}">Character</a>
+            </div>
         </div>
     </div>
 </body>

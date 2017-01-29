@@ -7,7 +7,7 @@ class FormValidationTest(FunctionalTest):
 
     def test_cannot_add_empty_initiative(self):
         # Gina goes to the home page and accidentally tries to submit an empty initiative item.
-        self.browser.get(self.server_url)
+        self.browser.get(self.server_url + '/init/')
 
         # confirm the fields are there
         titles = self.browser.find_elements_by_tag_name('label')

@@ -3,10 +3,6 @@ from .base import FunctionalTest
 
 class HomePageTest(FunctionalTest):
 
-    def search_page_links(self):
-        page_links = self.browser.find_elements_by_tag_name('a')
-
-
     def test_home_page_presents_correct_apps(self):
         # gina navigates to critaholic.com and finds, when the page loads, the expected page title
         self.browser.get(self.server_url)
@@ -17,9 +13,11 @@ class HomePageTest(FunctionalTest):
         self.assertIn('a suite of tools for DM\'s', introduction.text)
 
         # after she reads the introduction, she sees a list of options for different apps
-
-
-        #update this list as new apps are created
+        # update this list as new apps are created
+        page_links = self.browser.find_elements_by_tag_name('a')
+        apps_list = ['Initiative', 'Character']
+        for app in apps_list:
+            self.assertIn(app, [link.text for link in page_links])
 
 
         # for each link with the appropriate class, confirm text and link direction

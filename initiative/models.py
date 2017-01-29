@@ -5,7 +5,7 @@ from django.core.urlresolvers import reverse
 class Encounter(models.Model):
 
     def get_absolute_url(self):
-        return reverse('view', args=[self.id])
+        return reverse('init view', args=[self.id])
 
 
 class Initiative(models.Model):

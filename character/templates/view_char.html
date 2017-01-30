@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block header_text %}
+    Critaholic Characters
+{% endblock %}
+
+{% block form_action %}
+    {% url 'character view' encounter.id %}
+{% endblock %}
+
+{% block character_table %}
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <table id="init_table" class="table table-striped">
+                <tr>
+                    <td>Name</td>
+                    <td>Description</td>
+                </tr>
+                {% for character in character.character_set.all %}
+                    <tr>
+                        <td class="character_name_display">{{ character.character_name }}</td>
+                        <td class="character_description_display">{{ character.summary }}</td>
+                    </tr>
+                {%  endfor %}
+            </table>
+        </div>
+    </div>
+{% endblock %}

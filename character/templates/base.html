@@ -7,7 +7,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-10 col-md-offset-1 jumbotron">
-                <h2>Character</h2>
+                <h2>{% block header_text %}{% endblock %}</h2>
             </div>
         </div>
         <div class="row">
@@ -18,7 +18,7 @@
         </div>
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
-                <form method="post" action="{% url 'new' %}" >
+                <form method="post" action="{% block form_action %}{% endblock %}" >
                     <div class="row">
                         <div class="col-md-4 form-group">
                             <label for="character_name" id="character_name_label">Character Name</label>
@@ -37,6 +37,9 @@
                     </div>
                 </form>
             </div>
+
+    {% block character_table %}
+    {% endblock %}
     </div>
 </body>
 </html>

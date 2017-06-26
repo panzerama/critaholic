@@ -22,7 +22,7 @@
                 </tr>
                 {% for initiative in encounter.initiative_set.all %}
                     <tr>
-                        <td class="initiative_name_display">{{ initiative.creature_name }}</td>
+                        <td id="name{{ forloop.counter }}" class="initiative_name_display">{{ initiative.creature_name }}</td>
                         <td class="initiative_number_display">{{ initiative.initiative_value }}</td>
                         <td class="initiative_hp_display" id="{{ initiative.creature_name }}_hp_display">{{ initiative.hit_points }}</td>
                         <td class="initiative_hp_edit">

@@ -13,6 +13,13 @@ class Initiative(models.Model):
     initiative_value = models.IntegerField(default=0)
     hit_points = models.IntegerField(default=1)
     encounter = models.ForeignKey(Encounter, default=None)
+    turn_order = models.IntegerField(default=0)
+
+    def save(self, *args, **kwargs):
+        if self.turn_order == 0:
+            self.turn_order = Initiative.objects.filter(encounter=self.encounter).count() + 1
+        super(Initiative, self).save(*args, **kwargs)
+
 
     class Meta:
-        ordering = ['-initiative_value']
+        ordering = ['turn_order']

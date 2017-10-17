@@ -23,7 +23,7 @@ def view_init(request, encounter_id):
             return redirect(encounter_)
         except ValidationError:
             initiative_.delete()
-            error = 'An initiative entry must have a name!'
+            error = 'An initiative entry must have a name!' #todo this is being raised for multiple validation issues
         except ValueError:
             error = 'An initiative entry must have a valid initiative value!'
     return render(request, 'view_init.html', {'encounter': encounter_, 'error': error})

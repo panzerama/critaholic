@@ -64,3 +64,28 @@ class EncounterAndInitiativeModelTest(TestCase):
         encounter_ = Encounter.objects.create()
 
         self.assertEqual(encounter_.get_absolute_url(), '/init/%d/' % encounter_.id)
+
+    def test_initiative_order_assigned_automatically(self):
+        encounter_ = Encounter()
+        encounter_.save()
+
+        first_init = Initiative()
+        first_init.creature_name = 'Shaltorinn'
+        first_init.initiative_value = 20
+        first_init.hit_points = 250
+        first_init.encounter = encounter_
+        first_init.save() #todo initiative form is raising a validation error
+
+        second_init = Initiative()
+        second_init.creature_name = 'Falkrainne'
+        second_init.initiative_value = 1
+        second_init.hit_points = 2
+        second_init.encounter = encounter_
+        second_init.save()
+
+        init_order = Initiative.objects.all()
+        first_saved_init = init_order[0]
+        second_saved_init = init_order[1]
+
+        self.assertEqual(first_saved_init.turn_order, 1)
+        self.assertEqual(second_saved_init.turn_order, 2)

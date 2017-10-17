@@ -13,6 +13,7 @@ class Initiative(models.Model):
     initiative_value = models.IntegerField(default=0)
     hit_points = models.IntegerField(default=1)
     encounter = models.ForeignKey(Encounter, default=None)
+    turn_order = models.IntegerField(null=True)
 
     class Meta:
         ordering = ['-initiative_value']

@@ -14,6 +14,10 @@ In no particular order...
 
 ## Initiative
 **Tool for tracking intiative of various actors in an encounter**
+* Implements a turn order field
+* modify the interface to allow turn order modification with buttons
+* modify the interface to allow turn order sent to bottom or top
+* modify the interface to allow numeric changes to the turn order
 
 ###High
 * Form validation *check*
@@ -22,7 +26,7 @@ In no particular order...
 * Encounter name or label
 * unique urls or slugs
 
-###Future
+###Future (Angular JS frontend)
 * The different characters and associated powers are listed along with targets. By selecting boxes and values, such as 
     'Falkrainne', 'casts heal', 'Shaltorinn', the player can effect each other or monsters.
 * multiple users creating and editing single encounter in real time (depends on user roles above)
@@ -45,3 +49,6 @@ In no particular order...
 
 * Item model and form
 * Item association with Ability and Character, one-to-many
+
+## Frontend changes
+**Implement AngularJS as a frontend app**

@@ -15,9 +15,10 @@ def view_init(request, encounter_id):
     if request.method == 'POST':
         try:
             initiative_ = Initiative.objects.create(creature_name=request.POST['init_name'],
-                                  initiative_value=request.POST['init_num'],
-                                  hit_points=request.POST['init_hp'],
-                                  encounter=encounter_)
+                                                    initiative_value=request.POST['init_num'],
+                                                    hit_points=request.POST['init_hp'],
+                                                    turn_order=1,
+                                                    encounter=encounter_)
             initiative_.full_clean()
             initiative_.save()
             return redirect(encounter_)
@@ -36,6 +37,7 @@ def new_init(request):
         initiative_ = Initiative.objects.create(creature_name=request.POST['init_name'],
                                                 initiative_value=request.POST['init_num'],
                                                 hit_points=request.POST['init_hp'],
+                                                turn_order=1,
                                                 encounter=encounter_)
         initiative_.full_clean()
         initiative_.save()

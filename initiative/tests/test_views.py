@@ -142,3 +142,11 @@ class HPModifyTest(TestCase):
         shaltorin_hp = Initiative.objects.get(id=this_initiative.id).hit_points
 
         self.assertEqual(245, shaltorin_hp)
+
+class TurnOrderModifyTest(TestCase):
+
+    def test_init_order_up(self):
+        pass
+
+    def test_init_order_down(self):
+        pass

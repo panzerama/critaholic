@@ -70,16 +70,16 @@ class EncounterAndInitiativeModelTest(TestCase):
         encounter_.save()
 
         first_init = Initiative()
-        first_init.creature_name = 'Shaltorinn'
-        first_init.initiative_value = 20
+        first_init.creature_name = 'Falkrainne'
+        first_init.initiative_value = 1
         first_init.hit_points = 250
         first_init.encounter = encounter_
-        first_init.save() #todo initiative form is raising a validation error
+        first_init.save()
 
         second_init = Initiative()
-        second_init.creature_name = 'Falkrainne'
-        second_init.initiative_value = 1
-        second_init.hit_points = 2
+        second_init.creature_name = 'Shaltorinn'
+        second_init.initiative_value = 20
+        second_init.hit_points = 210
         second_init.encounter = encounter_
         second_init.save()
 
@@ -88,4 +88,43 @@ class EncounterAndInitiativeModelTest(TestCase):
         second_saved_init = init_order[1]
 
         self.assertEqual(first_saved_init.turn_order, 1)
+        self.assertEqual(first_saved_init.creature_name, 'Falkrainne')
         self.assertEqual(second_saved_init.turn_order, 2)
+        self.assertEqual(second_saved_init.creature_name, 'Shaltorinn')
+
+    def test_initiative_sort_function_modifies_turn_order(self): #todo remove code duplication
+        encounter_ = Encounter()
+        encounter_.save()
+
+        first_init = Initiative()
+        first_init.creature_name = 'Falkrainne'
+        first_init.initiative_value = 1
+        first_init.hit_points = 250
+        first_init.encounter = encounter_
+        first_init.save()
+
+        second_init = Initiative()
+        second_init.creature_name = 'Shaltorinn'
+        second_init.initiative_value = 20
+        second_init.hit_points = 210
+        second_init.encounter = encounter_
+        second_init.save()
+
+        third_init = Initiative()
+        third_init.creature_name = 'Kobold'
+        third_init.initiative_value = 15
+        third_init.hit_points = 12
+        third_init.encounter = encounter_
+        third_init.save()
+
+        init_order = Initiative.objects.all()
+        first_saved_init = init_order[0]
+        second_saved_init = init_order[1]
+        third_saved_init = init_order[2]
+
+        self.assertEqual(first_saved_init.turn_order, 1)
+        self.assertEqual(first_saved_init.creature_name, 'Falkrainne')
+        self.assertEqual(second_saved_init.turn_order, 2)
+        self.assertEqual(second_saved_init.creature_name, 'Shaltorinn')
+        self.assertEqual(third_saved_init.turn_order, 3)
+        self.assertEqual(third_saved_init.creature_name, 'Kobold')

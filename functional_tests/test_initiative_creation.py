@@ -207,3 +207,18 @@ class NewEncounterTest(FunctionalTest):
 
         falkrainne_hp_test = self.browser.find_element_by_id('Falkrainne_hp_display')
         self.assertEqual('113', falkrainne_hp_test.text)
+
+    def test_initiative_order_can_be_modified(self):
+        #Gina the GM comes back to critaholic to run another session
+        #She adds a monster to the initiative order
+        #it has an init of 12
+        #And then she adds a hero with a higher initiative
+        #it has an init of 18
+        #when the page refreshes, the initiative entries are in the appropriate order
+        #she adds a third initiative
+        #and the order re-orients itself appropriately
+        #she decides to move someone out of initiative order
+        #and manually changes it by clicking up and down arrows
+        #she sees the option to reset the initiative order, which sorts from highest init to lowest
+        #satisfied, she moves on
+        self.fail("Finish the turn order test")

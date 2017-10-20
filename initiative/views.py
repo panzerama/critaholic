@@ -17,7 +17,6 @@ def view_init(request, encounter_id):
             initiative_ = Initiative.objects.create(creature_name=request.POST['init_name'],
                                                     initiative_value=request.POST['init_num'],
                                                     hit_points=request.POST['init_hp'],
-                                                    turn_order=1,
                                                     encounter=encounter_)
             initiative_.full_clean()
             initiative_.save()
@@ -37,7 +36,6 @@ def new_init(request):
         initiative_ = Initiative.objects.create(creature_name=request.POST['init_name'],
                                                 initiative_value=request.POST['init_num'],
                                                 hit_points=request.POST['init_hp'],
-                                                turn_order=1,
                                                 encounter=encounter_)
         initiative_.full_clean()
         initiative_.save()

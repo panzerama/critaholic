@@ -209,16 +209,51 @@ class NewEncounterTest(FunctionalTest):
         self.assertEqual('113', falkrainne_hp_test.text)
 
     def test_initiative_order_can_be_modified(self):
-        #Gina the GM comes back to critaholic to run another session
-        #She adds a monster to the initiative order
-        #it has an init of 12
-        #And then she adds a hero with a higher initiative
-        #it has an init of 18
-        #when the page refreshes, the initiative entries are in the appropriate order
-        #she adds a third initiative
-        #and the order re-orients itself appropriately
-        #she decides to move someone out of initiative order
-        #and manually changes it by clicking up and down arrows
-        #she sees the option to reset the initiative order, which sorts from highest init to lowest
-        #satisfied, she moves on
+        # Gina the GM comes back to critaholic to run another session
+        self.browser.get(self.server_url)
+
+        # She adds a monster to the initiative order with an init of 12
+        # Kobold
+        initiative_name_input = self.browser.find_element_by_id('initiative_name_input')
+        initiative_name_input.send_keys('Kobold')
+        initiative_number_input = self.browser.find_element_by_id('initiative_number_input')
+        initiative_number_input.send_keys('1')
+        initiative_number_input = self.browser.find_element_by_id('initiative_hp_input')
+        initiative_number_input.send_keys('12')
+        initiative_submit = self.browser.find_element_by_id('initiative_submit')
+        initiative_submit.click()
+
+        # And then she adds a hero with a higher initiative it has an init of 18
+        # Falkrainne
+        initiative_name_input = self.browser.find_element_by_id('initiative_name_input')
+        initiative_name_input.send_keys('Falkrainne')
+        initiative_number_input = self.browser.find_element_by_id('initiative_number_input')
+        initiative_number_input.send_keys('18')
+        initiative_number_input = self.browser.find_element_by_id('initiative_hp_input')
+        initiative_number_input.send_keys('101')
+        initiative_submit = self.browser.find_element_by_id('initiative_submit')
+        initiative_submit.click()
+
+        # when the page refreshes, the initiative entries are in the order entered
+        self.fail("Write initiative order test or implement function")
+
+        # She hits Order the Initiatives button and the initiative order is sorted
+
+        # she adds a third initiative, which appears in the expected place. She hits the button again
+        # Shaltorinn
+        initiative_name_input = self.browser.find_element_by_id('initiative_name_input')
+        initiative_name_input.send_keys('Shaltorinn')
+        initiative_number_input = self.browser.find_element_by_id('initiative_number_input')
+        initiative_number_input.send_keys('17')
+        initiative_number_input = self.browser.find_element_by_id('initiative_hp_input')
+        initiative_number_input.send_keys('120')
+        initiative_submit = self.browser.find_element_by_id('initiative_submit')
+        initiative_submit.click()
+
+        # and the order re-orients itself appropriately
+
+        # she decides to move someone out of initiative order and manually changes it by clicking up and down arrows
+        # she reloads the page or returns to the site, and the modified order is preserved
+        # she sorts it back into iniative value order.
+        # satisfied, she moves on
         self.fail("Finish the turn order test")

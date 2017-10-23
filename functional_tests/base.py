@@ -28,7 +28,7 @@ class FunctionalTest(StaticLiveServerTestCase):
     def tearDown(self):
         self.browser.quit()
 
-    def check_for_cells_in_list_table(self, cell_text):
+    def check_for_cells_in_list_table(self, expected_text):
         table = self.browser.find_element_by_id('init_table')
         cells = table.find_elements_by_tag_name('td')
-        self.assertIn(cell_text, [cell.text for cell in cells])
+        self.assertIn(expected_text, [cell.text for cell in cells])

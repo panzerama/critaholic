@@ -28,7 +28,11 @@ class FunctionalTest(StaticLiveServerTestCase):
     def tearDown(self):
         self.browser.quit()
 
-    def check_for_cells_in_list_table(self, expected_text):
+    def check_for_cells_in_init_table(self, expected_text):
         table = self.browser.find_element_by_id('init_table')
         cells = table.find_elements_by_tag_name('td')
         self.assertIn(expected_text, [cell.text for cell in cells])
+
+    def check_order_of_cells_in_init_table(self, expected_list_order):
+        table = self.browser.find_element_by_id('init_table')
+

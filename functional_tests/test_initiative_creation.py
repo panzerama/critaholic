@@ -52,9 +52,9 @@ class NewEncounterTest(FunctionalTest):
         gina_init_url = self.browser.current_url
         self.assertRegex(gina_init_url, '/init/.+')
 
-        self.check_for_cells_in_list_table('Displacer beast')
-        self.check_for_cells_in_list_table('10')
-        self.check_for_cells_in_list_table('100')
+        self.check_for_cells_in_init_table('Displacer beast')
+        self.check_for_cells_in_init_table('10')
+        self.check_for_cells_in_init_table('100')
 
         # There is still a pair of text boxes ready to accept information
         # assert that the form fields are there
@@ -82,12 +82,12 @@ class NewEncounterTest(FunctionalTest):
         # iterate through the cells and rows
         #    assert that the appropriate beasts are listed in the appropriate order
 
-        self.check_for_cells_in_list_table('Displacer beast')
-        self.check_for_cells_in_list_table('10')
-        self.check_for_cells_in_list_table('100')
-        self.check_for_cells_in_list_table('Ettin')
-        self.check_for_cells_in_list_table('2')
-        self.check_for_cells_in_list_table('125')
+        self.check_for_cells_in_init_table('Displacer beast')
+        self.check_for_cells_in_init_table('10')
+        self.check_for_cells_in_init_table('100')
+        self.check_for_cells_in_init_table('Ettin')
+        self.check_for_cells_in_init_table('2')
+        self.check_for_cells_in_init_table('125')
 
         # Gary the GM comes to the site too, having heard about the awesomeness
         self.browser.quit()

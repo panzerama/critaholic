@@ -47,9 +47,9 @@ class FormValidationTest(FunctionalTest):
         initiative_submit.click()
 
         # And it checks out as working
-        self.check_for_cells_in_list_table('Displacer Beast')
-        self.check_for_cells_in_list_table('10')
-        self.check_for_cells_in_list_table('100')
+        self.check_for_cells_in_init_table('Displacer Beast')
+        self.check_for_cells_in_init_table('10')
+        self.check_for_cells_in_init_table('100')
 
         # For some perverse reason, she does it again.
         initiative_name_input = self.browser.find_element_by_id('initiative_name_input')
@@ -82,9 +82,9 @@ class FormValidationTest(FunctionalTest):
         initiative_submit.click()
 
         # And it checks out as working
-        self.check_for_cells_in_list_table('Young Dragon')
-        self.check_for_cells_in_list_table('6')
-        self.check_for_cells_in_list_table('80')
+        self.check_for_cells_in_init_table('Young Dragon')
+        self.check_for_cells_in_init_table('6')
+        self.check_for_cells_in_init_table('80')
 
         # Finally, she hits Enter without filling in the number field
         initiative_name_input = self.browser.find_element_by_id('initiative_name_input')

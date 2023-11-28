@@ -4,12 +4,10 @@ from initiative.views import home_page
 
 class HomePageTest(TestCase):
     def test_home_page_displays_initiative_tracker(self):
-        # Arrange
-        request = HttpRequest()
-
-        # Act
-        response = home_page(request)
-        html = response.content.decode("utf-8")
+        # Arrange & Act
+        response = self.client.get("/")
 
         # Assert
-        self.assertIn("<title>Initiative Tracker</title>", html)
+        self.assertContains(response, "<title>Initiative Tracker</title>")
+        self.assertContains(response, "<html>")
+        self.assertContains(response, "</html>")

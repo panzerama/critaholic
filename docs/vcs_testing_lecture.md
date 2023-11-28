@@ -46,12 +46,13 @@ or
         1. What happens if I change some content? 
         2. Rename a function?
 4. Useful git tools
+    1. Git internals, at speed, with log
     1. status 
     2. diff
     3. stash
     4. checkout
     5. commit --amend
-    6. log and reflog
+    6. reflog
     7. merge vs. rebase
 5. The 'Real World' if you can call it that
     1. Product teams, OKRs and roadmaps

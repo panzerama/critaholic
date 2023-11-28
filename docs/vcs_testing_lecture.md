@@ -74,6 +74,7 @@ or
     7. merge vs. rebase
         - tl;dr; unless you have a reason, merge
         - rebase is *destructive*, merge is not
+        - one *really* good reason: cleaning up messy commit history
 5. The 'Real World' if you can call it that
     1. Product teams, OKRs and roadmaps
     2. Jira and other project management tools

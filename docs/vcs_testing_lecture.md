@@ -37,6 +37,7 @@ or
         3. Once the test succeeds, write a new test or expand the current
     3. If we have features we're working on, we can get more specific
         1. Branch `03-tests-and-sdlc`
+            - Point out the common patterns in test case inheriting classes
         2. We've expanded our functional test to a proper user story
         3. That's our goal, and now we can test our way to success
         4. We write a _failing_ unit test to fulfill the smallest reasonable chunk of that feature

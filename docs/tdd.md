@@ -1,5 +1,5 @@
 ```mermaid
-    flowchart LR
+    flowchart LR;
      B(Write a failing functional test)
         B --> C{Is there a failing 
                         functional test}

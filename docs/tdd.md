@@ -2,8 +2,7 @@
 
 ```mermaid
 flowchart LR;
-    B(Write a failing functional test)
-    B --> C{Is there a failing 
+    B(Write a failing functional test) --> C{Is there a failing 
                     functional test}
     C -->|No| B
     C -->|Yes| D{Is there a failing 

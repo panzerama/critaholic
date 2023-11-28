@@ -5,6 +5,7 @@ or
 1. What do tests really get us?
     1. Direction
         - Relying on user stories to drive functional tests and using unit tests to define code requirements can give you a focused path to completing a project.
+        - When you follow the pattern of failing test -> code, you're always going to know where to pick back up
     2. Reliability
         - Having good code coverage reduces the risk of breaking code with future changes
         - Being able to run your tests quickly makes fixing bugs under pressure way easier
@@ -60,31 +61,3 @@ or
     2. Jira and other project management tools
     3. Release cadences
     4. CI/CD and regression testing
-
-- what happens when we don't have a 'user' per se?
-## User Story as a Functional Test
-
-
-User Story
-A description of how the application will work from the point of view of the user. Used to structure a functional test.
-
-Expected failure
-When a test fails in the way that we expected it to.
-
-FTs	Unit Tests
-One test per feature / user story
-
-Many tests per feature
-
-Test from the user’s point of view
-
-Test the code, ie the programmer’s point of view
-
-Can test that the UI "really" works
-
-Tests the internals, individual functions or classes
-
-Provides confidence that everything is wired together correctly, works end-to-end
-
-Can exhaustively check permutations, details, edge cases
-

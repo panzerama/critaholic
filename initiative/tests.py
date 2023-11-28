@@ -8,6 +8,6 @@ class HomePageTest(TestCase):
         response = self.client.get("/")
 
         # Assert
-        self.assertContains(response, "<title>Initiative Tracker</title>")
+        self.assertContains(response, "<title>Critaholic</title>")
         self.assertContains(response, "<html>")
         self.assertContains(response, "</html>")

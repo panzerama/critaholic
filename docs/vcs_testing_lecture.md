@@ -17,6 +17,7 @@ or
         - Functional or end-to-end tests tell us something about the behavior of an application, whether its a website, a mobile app, or an API
         - Functional test frameworks can help you maintain state, mimic user behavior, and even record animations to verify. Some examples are Selenium and Cypress
         - Functional tests often focus on the 'happy path', or the successful behavior of an app
+        - sidebar: integration test as a term
     2. Unit tests
         - Branch `02-a-unit-test`
         - Unit tests are much smaller in scope, and are useful for fine-grained testing, error cases, and permutations
@@ -49,13 +50,30 @@ or
         2. Rename a function?
 4. Useful git tools
     1. Git internals, at speed, with log
-    1. status 
+        - Also, read the docs. You need to get used to reading docs _today_
+    1. status
+        - What does each color/state mean
+        - What does 'restore' or 'reset' do
     2. diff
+        - How to read a diff
+        - Compact summary
+        - add -i
     3. stash
+        - stash, stash push, stash pop
+        - stash list
+        - look, more meta refs
     4. checkout
+        - checkout to move to another commit (detached head state thingy)
+        - checkout to emulate cherry-pick
     5. commit --amend
+        - oops...
     6. reflog
+        - Git reference logs, hashes that point to references in code
+        - HEAD@{2}
+        - really useful if you aren't sure what branch you were working on last
     7. merge vs. rebase
+        - tl;dr; unless you have a reason, merge
+        - rebase is *destructive*, merge is not
 5. The 'Real World' if you can call it that
     1. Product teams, OKRs and roadmaps
     2. Jira and other project management tools

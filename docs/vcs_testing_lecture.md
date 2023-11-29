@@ -1,6 +1,6 @@
 # Version Control and Testing
 or 
-## How _Not_ to Suck at Coding
+## Friends don't let friends rage-code
 
 1. What do tests really get us?
     1. Direction
@@ -14,10 +14,11 @@ or
 2. Writing a test
     1. Functional tests
         - Branch `01-first-functional-test`
+          - Demo: checkout notes from branch 03...
         - Functional or end-to-end tests tell us something about the behavior of an application, whether its a website, a mobile app, or an API
         - Functional test frameworks can help you maintain state, mimic user behavior, and even record animations to verify. Some examples are Selenium and Cypress
         - Functional tests often focus on the 'happy path', or the successful behavior of an app
-        - sidebar: integration test as a term
+          - sidebar: integration test as a term
     2. Unit tests
         - Branch `02-a-unit-test`
         - Unit tests are much smaller in scope, and are useful for fine-grained testing, error cases, and permutations
@@ -45,33 +46,35 @@ or
         4. We write a _failing_ unit test to fulfill the smallest reasonable chunk of that feature
         5. Git commit as much as you need!
         6. Once it succeeds, rinse and repeat until the feature is done
+        7. DEMO - Write the next failing unit tests, one TDD and one after-thought
+           1. 
     4. Now that we have a test, we can prevent regressions!
         1. What happens if I change some content? 
         2. Rename a function?
 4. Useful git tools
     1. Git internals, at speed, with log
         - Also, read the docs. You need to get used to reading docs _today_
-    1. status
+    2. status
         - What does each color/state mean
         - What does 'restore' or 'reset' do
-    2. diff
+    3. diff
         - How to read a diff
         - Compact summary
         - add -i
-    3. stash
+    4. stash
         - stash, stash push, stash pop
         - stash list
         - look, more meta refs
-    4. checkout
+    5. checkout
         - checkout to move to another commit (detached head state thingy)
         - checkout to emulate cherry-pick
-    5. commit --amend
+    6. commit --amend
         - oops...
-    6. reflog
+    7. reflog
         - Git reference logs, hashes that point to references in code
         - HEAD@{2}
         - really useful if you aren't sure what branch you were working on last
-    7. merge vs. rebase
+    8. merge vs. rebase
         - tl;dr; unless you have a reason, merge
         - rebase is *destructive*, merge is not
         - one *really* good reason: cleaning up messy commit history

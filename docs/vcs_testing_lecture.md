@@ -61,6 +61,7 @@ or
         - How to read a diff
         - Compact summary
         - add -i
+        - compare to the humble pull request
     4. stash
         - stash, stash push, stash pop
         - stash list

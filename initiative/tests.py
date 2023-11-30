@@ -11,3 +11,6 @@ class HomePageTest(TestCase):
         self.assertContains(response, "<title>Critaholic</title>")
         self.assertContains(response, "<html>")
         self.assertContains(response, "</html>")
+
+        self.assertContains(response, "<h1>Initiative Tracker</h1>")
+

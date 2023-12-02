@@ -1,5 +1,5 @@
 from django.db import models
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 
 
 class Encounter(models.Model):
@@ -12,7 +12,11 @@ class Initiative(models.Model):
     creature_name = models.TextField(blank=False)
     initiative_value = models.IntegerField(default=0)
     hit_points = models.IntegerField(default=1)
-    encounter = models.ForeignKey(Encounter, default=None)
+    encounter = models.ForeignKey(
+        Encounter,
+        default=None,
+        on_delete=models.PROTECT
+    )
 
     class Meta:
         ordering = ['-initiative_value']

@@ -2,4 +2,4 @@ db.sqlite3
 critaholic/__pycache__/
 *.pyc
 .python-version
-envfile
+.env

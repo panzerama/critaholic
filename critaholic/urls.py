@@ -6,7 +6,7 @@ from character import urls as character_urls
 
 
 urlpatterns = [
-    path(r'^$', init_views.home_page, name='home'),
-    path(r'^init/', include(init_urls)),
-    path(r'^character/', include(character_urls))
+    path('', init_views.home_page, name='home'),
+    path('init/', include(init_urls)),
+    path('character/', include(character_urls))
 ]

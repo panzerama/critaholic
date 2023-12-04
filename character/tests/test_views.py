@@ -1,6 +1,6 @@
 from django.test import TestCase
 from character.views import char_page
-from django.core.urlresolvers import resolve
+from django.urls import resolve
 from character.models import Character
 
 class NewCharacterTest(TestCase):

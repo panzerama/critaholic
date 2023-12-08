@@ -1,6 +1,6 @@
 from .base import FunctionalTest
 from selenium import webdriver
-from unittest import skip
+# from unittest import skip
 
 
 class NewEncounterTest(FunctionalTest):
@@ -188,9 +188,9 @@ class NewEncounterTest(FunctionalTest):
         kobold_hp_test = self.browser.find_element_by_id('Kobold_hp_display')
         self.assertEqual('12', kobold_hp_test.text)
 
-        hp_input = self.browser.find_element_by_id('Kobold_hp_edit') # find hit points entry box
+        hp_input = self.browser.find_element_by_id('Kobold_hp_edit')  # find hit points entry box
         hp_input.send_keys('4')
-        hp_sub_button = self.browser.find_element_by_id('Kobold_hp_sub') # find button to subtract hp value
+        hp_sub_button = self.browser.find_element_by_id('Kobold_hp_sub')  # find button to subtract hp value
         hp_sub_button.click()
 
         kobold_hp_test = self.browser.find_element_by_id('Kobold_hp_display')

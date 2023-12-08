@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 # from django.http import HttpResponse
 from initiative.models import Initiative, Encounter
 from django.core.exceptions import ValidationError
-from django.db.utils import IntegrityError
+# from django.db.utils import IntegrityError
 
 
 def home_page(request):
@@ -15,9 +15,9 @@ def view_init(request, encounter_id):
     if request.method == 'POST':
         try:
             initiative_ = Initiative.objects.create(creature_name=request.POST['init_name'],
-                                  initiative_value=request.POST['init_num'],
-                                  hit_points=request.POST['init_hp'],
-                                  encounter=encounter_)
+                                                    initiative_value=request.POST['init_num'],
+                                                    hit_points=request.POST['init_hp'],
+                                                    encounter=encounter_)
             initiative_.full_clean()
             initiative_.save()
             return redirect(encounter_)

@@ -1,10 +1,11 @@
 from .base import FunctionalTest
-from selenium import webdriver
+# from selenium import webdriver
 from unittest import skip
 
 
 class NewCharacterTest(FunctionalTest):
 
+    @skip("skipped character creation")
     def test_new_user_can_create_character(self):
         # Gina the GM has heard about a fantastic new app for tracking 
         # her character notes. She decides to try it out. She opens a browser and

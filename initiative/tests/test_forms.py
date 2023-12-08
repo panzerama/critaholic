@@ -1,6 +1,6 @@
 from django.test import TestCase
-
 from initiative.forms import InitiativeForm
+
 
 class InitiativeTestForm(TestCase):
 
@@ -15,6 +15,3 @@ class InitiativeTestForm(TestCase):
         init_form = InitiativeForm(data=data)
         self.assertFalse(init_form.is_valid())
         self.assertEqual
-        
-    # other tests
-    #

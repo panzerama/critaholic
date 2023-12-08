@@ -2,7 +2,6 @@ from django.core.exceptions import ValidationError
 from django.db.utils import IntegrityError
 from django.test import TestCase
 from initiative.models import Initiative, Encounter
-from unittest import skip
 
 
 class EncounterAndInitiativeModelTest(TestCase):

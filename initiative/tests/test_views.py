@@ -14,7 +14,7 @@ class HomePageTest(TestCase):
 
 
 class NewEncounterTest(TestCase):
-    @skip
+
     def test_name_and_init_input_saved_by_POST(self):
         self.client.post(
             "/init/new", data={"init_name": "beholder", "init_num": 18, "init_hp": 150}
@@ -25,7 +25,6 @@ class NewEncounterTest(TestCase):
         self.assertEqual(new_init_order.creature_name, "beholder")
         self.assertEqual(new_init_order.initiative_value, 18)
 
-    @skip
     def test_new_encounter_redirects_after_POST(self):
         response = self.client.post(
             "/init/new", data={"init_name": "beholder", "init_num": 18, "init_hp": 150}
@@ -36,7 +35,6 @@ class NewEncounterTest(TestCase):
         new_encounter = Encounter.objects.first()
         self.assertEqual(response["location"], "/init/%d/" % (new_encounter.id,))
 
-    @skip
     def test_empty_initiative_name_passes_error_to_new_encounter(self):
         response = self.client.post(
             "/init/new", data={"init_name": "", "init_num": 18, "init_hp": 150}
@@ -47,7 +45,6 @@ class NewEncounterTest(TestCase):
         expected_error = "An initiative entry must have a name!"
         self.assertContains(response, expected_error)
 
-    @skip
     def test_invalid_initiative_items_not_saved(self):
         self.client.post(
             "/init/new", data={"init_name": "", "init_num": 18, "init_hp": 150}

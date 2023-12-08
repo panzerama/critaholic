@@ -15,7 +15,7 @@ class Initiative(models.Model):
     encounter = models.ForeignKey(
         Encounter,
         default=None,
-        on_delete=models.PROTECT
+        on_delete=models.CASCADE
     )
 
     class Meta:

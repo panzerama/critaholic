@@ -56,13 +56,11 @@ class NewEncounterTest(TestCase):
 
 class InitViewTest(TestCase):
 
-    @skip
     def test_uses_view_init_template(self):
         encounter_ = Encounter.objects.create()
         response = self.client.get("/init/%d/" % (encounter_.id,))
         self.assertTemplateUsed(response, "view_init.html")
 
-    @skip
     def test_displays_all_monsters_in_order(self):
         correct_encounter_ = Encounter.objects.create()
         Initiative.objects.create(
@@ -104,14 +102,12 @@ class InitViewTest(TestCase):
         self.assertNotContains(response, "Shaltorin")
         self.assertNotContains(response, "Falkrainne")
 
-    @skip
     def test_init_view_uses_correct_encounter_id(self):
         correct_encounter_ = Encounter.objects.create()
         incorrect_encounter_ = Encounter.objects.create()
         response = self.client.get("/init/%d/" % (correct_encounter_.id,))
         self.assertEqual(response.context["encounter"], correct_encounter_)
 
-    @skip
     def test_can_save_initiative_to_existing_encounter(self):
         other_encounter = Encounter.objects.create()
         this_encounter = Encounter.objects.create()
@@ -126,7 +122,6 @@ class InitViewTest(TestCase):
         self.assertEqual(new_init.creature_name, "beholder")
         self.assertEqual(new_init.encounter, this_encounter)
 
-    @skip
     def test_POST_redirects_to_initiative_view(self):
         other_encounter = Encounter.objects.create()
         this_encounter = Encounter.objects.create()
@@ -138,7 +133,6 @@ class InitViewTest(TestCase):
 
         self.assertRedirects(response, "/init/%d/" % (this_encounter.id,))
 
-    @skip
     def test_init_name_validation_errors_displayed_on_init_view(self):
         encounter_ = Encounter.objects.create()
         response = self.client.post(
@@ -153,7 +147,6 @@ class InitViewTest(TestCase):
 
 
 class HPModifyTest(TestCase):
-    @skip
     def test_hp_add_redirects_and_modifies_init(self):
         this_encounter = Encounter.objects.create()
         this_initiative = Initiative.objects.create(
@@ -178,9 +171,8 @@ class HPModifyTest(TestCase):
 
         self.assertEqual(255, shaltorin_hp)
 
-    @skip
     def test_hp_sub_redirects_and_modifies_init(self):
-        other_encounter = Encounter.objects.create()
+        # other_encounter = Encounter.objects.create()
         this_encounter = Encounter.objects.create()
         this_initiative = Initiative.objects.create(
             creature_name="Shaltorin",
